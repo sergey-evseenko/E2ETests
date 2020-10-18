@@ -13,5 +13,4 @@
 
 **Reporting:** `Allure`
 
-**Logging:** `Lombok and Log4J`
 
