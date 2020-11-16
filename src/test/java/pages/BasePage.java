@@ -16,5 +16,5 @@ public abstract class BasePage {
 
     public abstract BasePage isPageOpened();
 
-    public abstract BasePage openPage();
+    public abstract BasePage openPage(String url);
 }

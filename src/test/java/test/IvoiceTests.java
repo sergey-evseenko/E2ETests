@@ -1,16 +1,37 @@
 package test;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class IvoiceTests extends BaseTest {
 
-    @Test(description = "Login with valid login/pass", priority = 1)
-    public void loginValid() {
-
+    @BeforeClass
+    @Test(description = "Login with valid login/pass")
+    public void validLogin() {
+        loginPage
+                .openPage(url)
+                .clickLoginButton()
+                .provideEmailAndPass(id, password)
+                .isPageOpened();
     }
 
-    @Test(description = "Login with invalid login/pass", priority = 2)
-    public void loginInvalid() {
-
+    @Test
+    public void addVoiceTalents() {
+        voiceTalentsPage
+                .openPage(url);
     }
+
+    @Test(dependsOnMethods = "addVoiceTalents")
+    public void searchVoiceTalents() {
+        voiceTalentsPage
+                .openPage(url);
+    }
+
+    @Test
+    public void filterVoiceTalents() {
+        voiceTalentsPage
+                .openPage(url);
+    }
+
+
 }

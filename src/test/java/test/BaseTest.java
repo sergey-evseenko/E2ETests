@@ -2,9 +2,12 @@ package test;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import pages.GoogleSignInPage;
 import pages.LoginPage;
+import pages.MainPage;
+import pages.VoiceTalentsPage;
 import utils.CapabilitiesGenerator;
 import utils.PropertyManager;
 
@@ -13,23 +16,31 @@ import java.util.concurrent.TimeUnit;
 public abstract class BaseTest {
     PropertyManager props;
     LoginPage loginPage;
-    String email;
+    GoogleSignInPage googleSignInPage;
+    VoiceTalentsPage voiceTalentsPage;
+    MainPage mainPage;
+    String id;
     String password;
+    String url;
 
     private WebDriver driver;
 
-    @BeforeMethod(description = "Opening Chrome Driver")
+    @BeforeClass(description = "Opening Chrome Driver")
     public void setDriver() {
         driver = new ChromeDriver(CapabilitiesGenerator.getChromeOptions());
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         loginPage = new LoginPage(driver);
+        googleSignInPage = new GoogleSignInPage(driver);
+        voiceTalentsPage = new VoiceTalentsPage(driver);
+        mainPage = new MainPage(driver);
         props = new PropertyManager();
-        email = props.get("email");
+        id = props.get("id");
         password = props.get("password");
+        url = props.get("url");
     }
 
-    @AfterMethod(description = "Closing Chrome Driver", alwaysRun = true)
+    @AfterClass(description = "Closing Chrome Driver", alwaysRun = true)
     public void closeDriver() {
         driver.quit();
     }
