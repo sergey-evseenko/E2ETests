@@ -4,10 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import pages.GoogleSignInPage;
-import pages.LoginPage;
-import pages.MainPage;
-import pages.VoiceTalentsPage;
+import pages.*;
 import utils.CapabilitiesGenerator;
 import utils.PropertyManager;
 
@@ -18,6 +15,7 @@ public abstract class BaseTest {
     LoginPage loginPage;
     GoogleSignInPage googleSignInPage;
     VoiceTalentsPage voiceTalentsPage;
+    CreateVoiceTalentPage createVoiceTalentPage;
     MainPage mainPage;
     String id;
     String password;
@@ -33,6 +31,7 @@ public abstract class BaseTest {
         loginPage = new LoginPage(driver);
         googleSignInPage = new GoogleSignInPage(driver);
         voiceTalentsPage = new VoiceTalentsPage(driver);
+        createVoiceTalentPage = new CreateVoiceTalentPage(driver);
         mainPage = new MainPage(driver);
         props = new PropertyManager();
         id = props.get("id");

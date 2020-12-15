@@ -24,4 +24,6 @@ public class MainPage extends BasePage {
     public LoginPage openPage(String url) {
         return null;
     }
+
+
 }
