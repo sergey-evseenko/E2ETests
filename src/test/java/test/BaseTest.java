@@ -14,7 +14,6 @@ public abstract class BaseTest {
     PropertyManager props;
     LoginPage loginPage;
     GoogleSignInPage googleSignInPage;
-    VoiceTalentsPage voiceTalentsPage;
     CreateVoiceTalentPage createVoiceTalentPage;
     CreateVoiceSamplePage createVoiceSamplePage;
     MainPage mainPage;
@@ -31,7 +30,6 @@ public abstract class BaseTest {
         driver.manage().window().maximize();
         loginPage = new LoginPage(driver);
         googleSignInPage = new GoogleSignInPage(driver);
-        voiceTalentsPage = new VoiceTalentsPage(driver);
         createVoiceTalentPage = new CreateVoiceTalentPage(driver);
         createVoiceSamplePage = new CreateVoiceSamplePage(driver);
         mainPage = new MainPage(driver);
