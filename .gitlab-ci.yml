@@ -1,0 +1,12 @@
+image: maven:latest
+
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+
+test:
+  stage: test
+  script:
+    - ls -la
+    - mvn clean test
