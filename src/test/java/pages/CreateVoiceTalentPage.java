@@ -1,5 +1,6 @@
 package pages;
 
+import models.VoiceSample;
 import models.VoiceTalent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -8,23 +9,25 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.List;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class CreateVoiceTalentPage extends BasePage {
 
     @FindBy(xpath = "//button[@type='submit']")
-    WebElement submitButton;
+    WebElement submitTalentButton;
+    @FindBy(xpath = "//span[contains(text(), 'Submit')]")
+    WebElement submitSampleButton;
     @FindBy(id = "firstName")
     WebElement inputFirstName;
     @FindBy(id = "lastName")
     WebElement inputLastName;
-    @FindBy(id = "email")
-    WebElement inputEmail;
+    @FindBy(xpath = "//input[@value='Male']")
+    WebElement radioButtonMale;
     @FindBy(id = "primaryLanguage")
     WebElement inputPrimaryLanguage;
-    @FindBy(id = "status")
-    WebElement inputStatus;
     @FindBy(id = "monthOfBirthday")
     WebElement inputMonthOfBirthday;
     @FindBy(id = "dayOfBirthday")
@@ -39,18 +42,33 @@ public class CreateVoiceTalentPage extends BasePage {
     WebElement inputMessengerType;
     @FindBy(id = "messengers_0_messengerId")
     WebElement inputMessengerId;
+    @FindBy(id = "email")
+    WebElement inputEmail;
+    @FindBy(id = "status")
+    WebElement inputStatus;
     @FindBy(id = "office")
     WebElement inputOffice;
     @FindBy(xpath = "//span[contains(text(), 'The record was saved successfully.')]")
-    WebElement messageSuccess;
-    @FindBy(xpath = "//input[@value='Male']")
-    WebElement radioButtonMale;
-    @FindBy(xpath = "//input[@value='Female']")
-    WebElement radioButtonFemale;
+    WebElement messageSuccessSaving;
+    @FindBy(xpath = "//span[contains(text(), 'The record was updated successfully.')]")
+    WebElement messageSuccessUpdating;
     @FindBy(xpath = "//span[contains(text(), 'Edit')]")
     WebElement editButton;
+    @FindBy(xpath = "//span[contains(text(), 'Upload')]")
+    WebElement uploadButton;
+    @FindBy(id = "uploadAudioSample_audioSample")
+    WebElement inputUploadAudio;
+    @FindBy(id = "uploadAudioSample_title")
+    WebElement inputTitle;
+    @FindBy(id = "uploadAudioSample_language")
+    WebElement inputLanguage;
+    @FindBy(id = "uploadAudioSample_sampleType")
+    WebElement inputSampleType;
+    @FindBy(id = "uploadAudioSample_ageRange")
+    WebElement inputAgeRange;
+    @FindBy(css = ".ant-table-row.ant-table-row-level-0")
+    WebElement voiceSamplesTable;
 
-    String locatorDropdown = "//input[@id='%s']//..//..//span[@class='ant-select-selection-item']";
 
     public CreateVoiceTalentPage(WebDriver driver) {
         super(driver);
@@ -58,7 +76,7 @@ public class CreateVoiceTalentPage extends BasePage {
 
     @Override
     public BasePage isPageOpened() {
-        wait.until(ExpectedConditions.elementToBeClickable(submitButton));
+        wait.until(ExpectedConditions.elementToBeClickable(submitTalentButton));
         return null;
     }
 
@@ -83,50 +101,57 @@ public class CreateVoiceTalentPage extends BasePage {
         inputStatus.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
         inputEmail.sendKeys(voiceTalent.getEmail());
         inputOffice.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
-        submitButton.click();
-        wait.until(ExpectedConditions.visibilityOf(messageSuccess));
+        submitTalentButton.click();
+        wait.until(ExpectedConditions.visibilityOf(messageSuccessSaving));
         return this;
     }
 
     public CreateVoiceTalentPage verifySavedData(VoiceTalent voiceTalent) {
+        String locatorDropdown = "//input[@id='%s']//..//..//span[@class='ant-select-selection-item']";
+
         WebElement valuePrimaryLanguage = driver.findElement(By.xpath(String.format(locatorDropdown, "primaryLanguage")));
         WebElement valuePhoneCountryCode = driver.findElement(By.xpath(String.format(locatorDropdown, "contact_numbers_0_phoneCountryCode")));
 
         assertEquals(inputFirstName.getAttribute("value"), voiceTalent.getFirstName(), "Invalid first name");
         assertEquals(inputLastName.getAttribute("value"), voiceTalent.getLastName(), "Invalid last name");
+        assertEquals(inputEmail.getAttribute("value"), voiceTalent.getEmail(), "Invalid email");
+        assertEquals(inputMessengerId.getAttribute("value"), voiceTalent.getMessengerId(), "Invalid messenger id");
+        assertEquals(inputContactNumber.getAttribute("value"), voiceTalent.getContactNumber(), "Invalid contact number");
         assertTrue(radioButtonMale.isSelected());
         assertEquals(valuePrimaryLanguage.getAttribute("title"), voiceTalent.getPrimaryLanguage(), "Invalid primary language");
         assertEquals(valuePhoneCountryCode.getAttribute("title"), voiceTalent.getCountryCode(), "Invalid country code");
-        assertEquals(inputContactNumber.getAttribute("value"), voiceTalent.getContactNumber(), "Invalid contact number");
-        assertEquals(inputMessengerId.getAttribute("value"), voiceTalent.getMessengerId(), "Invalid messenger id");
-        assertEquals(inputEmail.getAttribute("value"), voiceTalent.getEmail(), "Invalid email");
         return this;
     }
 
     public CreateVoiceTalentPage editAndSaveData(VoiceTalent voiceTalent) {
         editButton.click();
-        String param = "arguments[0].value='%s';";
+        inputFirstName.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getFirstName());
+        inputLastName.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getLastName());
+        inputEmail.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getEmail());
+        inputMessengerId.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getMessengerId());
+        inputContactNumber.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getContactNumber());
+        submitTalentButton.click();
+        wait.until(ExpectedConditions.visibilityOf(messageSuccessUpdating));
+        return this;
+    }
 
-        inputLastName.clear();
+    public CreateVoiceTalentPage editAndUploadVoiceSample(VoiceSample voiceSample) {
+        editButton.click();
+        uploadButton.click();
+        inputTitle.sendKeys(voiceSample.getTitle());
+        inputLanguage.sendKeys(voiceSample.getLanguage(), Keys.ENTER);
+        inputSampleType.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
+        inputAgeRange.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
+        inputUploadAudio.sendKeys("/Users/sergeyevseenko/IdeaProjects/Ivoice/src/test/resources/QA.mp3");
+        submitSampleButton.click();
+        submitTalentButton.click();
+        wait.until(ExpectedConditions.visibilityOf(messageSuccessUpdating));
+        return this;
+    }
 
-        /*
-
-
-        ((JavascriptExecutor) driver).executeScript(String.format(param, "test"), inputFirstName);
-        inputLastName.click();
-        ((JavascriptExecutor) driver).executeScript(String.format(param, "test"), inputLastName);
-        radioButtonFemale.click();
-        inputPrimaryLanguage.sendKeys(voiceTalent.getPrimaryLanguage(), Keys.ENTER);
-        inputPhoneCountryCode.sendKeys(voiceTalent.getCountryCode(), Keys.ENTER);
-        ((JavascriptExecutor) driver).executeScript(String.format(param, voiceTalent.getContactNumber()), inputContactNumber);
-        ((JavascriptExecutor) driver).executeScript(String.format(param, "test"), inputMessengerId);
-        ((JavascriptExecutor) driver).executeScript(String.format(param, "test@gmail.com"), inputEmail);
-        submitButton.click();
-
-
-         */
-
-
+    public CreateVoiceTalentPage verifyUploadedVoiceSample(VoiceSample voiceSample) {
+        List<WebElement> listOfVoiceSamples = driver.findElements(By.cssSelector(".ant-table-row.ant-table-row-level-0"));
+        assertEquals(listOfVoiceSamples.size(), 1, "Voice sample was uploaded incorrectly");
         return this;
     }
 }

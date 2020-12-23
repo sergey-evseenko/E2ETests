@@ -1,33 +1,11 @@
 package test;
 
+import models.VoiceSample;
 import models.VoiceTalent;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.util.UUID;
-
 public class IvoiceTests extends BaseTest {
-
-
-    VoiceTalent voiceTalent = new VoiceTalent(
-            UUID.randomUUID().toString(),
-            UUID.randomUUID().toString(),
-            UUID.randomUUID().toString() + "@gmail.com",
-            UUID.randomUUID().toString(),
-            "1",
-            "AD 376",
-            "Afar"
-    );
-
-    VoiceTalent voiceTalentUpdated = new VoiceTalent(
-            UUID.randomUUID().toString(),
-            UUID.randomUUID().toString(),
-            UUID.randomUUID().toString() + "@gmail.com",
-            UUID.randomUUID().toString(),
-            "2",
-            "RU 7",
-            "Abkhazian"
-    );
 
     @BeforeClass
     public void validLogin() {
@@ -39,35 +17,31 @@ public class IvoiceTests extends BaseTest {
     }
 
     @Test
-    public void createVoiceTalent() {
+    public void voiceTalentTest() {
+        VoiceTalent newVoiceTalent = VoiceTalentFactory.getVoiceTalent(),
+                updatedVoiceTalent = VoiceTalentFactory.getVoiceTalent();
+        VoiceSample voiceSample = VoiceSampleFactory.getVoiceSample();
         createVoiceTalentPage
                 .openPage(url)
-                .provideDataAndSave(voiceTalent)
-                .verifySavedData(voiceTalent)
-                .editAndSaveData(voiceTalentUpdated);
-        //.verifySavedData(voiceTalentUpdated)
-        //.editAndUploadVoiceSamle(path)
-        //.verifyUloadedVoiceSample;
-
-
+                .provideDataAndSave(newVoiceTalent)
+                .verifySavedData(newVoiceTalent)
+                .editAndSaveData(updatedVoiceTalent)
+                .verifySavedData(updatedVoiceTalent)
+                .editAndUploadVoiceSample(voiceSample)
+                .verifyUploadedVoiceSample(voiceSample);
     }
 
     @Test
-    public void addVoiceTalents() {
-        voiceTalentsPage
-                .openPage(url);
-    }
+    public void voiceSampleTest() {
+        VoiceSample newVoiceSample = VoiceSampleFactory.getVoiceSample(),
+                updatedVoiceSample = VoiceSampleFactory.getVoiceSample();
+        createVoiceSamplePage
+                .openPage(url)
+                .provideDataAndSave(newVoiceSample)
+                .verifySavedData(newVoiceSample)
+                .editAndSaveData(updatedVoiceSample)
+                .verifySavedData(updatedVoiceSample);
 
-    @Test(dependsOnMethods = "addVoiceTalents")
-    public void searchVoiceTalents() {
-        voiceTalentsPage
-                .openPage(url);
-    }
-
-    @Test
-    public void filterVoiceTalents() {
-        voiceTalentsPage
-                .openPage(url);
     }
 
 

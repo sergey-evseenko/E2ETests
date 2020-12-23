@@ -16,6 +16,7 @@ public abstract class BaseTest {
     GoogleSignInPage googleSignInPage;
     VoiceTalentsPage voiceTalentsPage;
     CreateVoiceTalentPage createVoiceTalentPage;
+    CreateVoiceSamplePage createVoiceSamplePage;
     MainPage mainPage;
     String id;
     String password;
@@ -32,6 +33,7 @@ public abstract class BaseTest {
         googleSignInPage = new GoogleSignInPage(driver);
         voiceTalentsPage = new VoiceTalentsPage(driver);
         createVoiceTalentPage = new CreateVoiceTalentPage(driver);
+        createVoiceSamplePage = new CreateVoiceSamplePage(driver);
         mainPage = new MainPage(driver);
         props = new PropertyManager();
         id = props.get("id");
