@@ -8,9 +8,13 @@ import lombok.Data;
 public class VoiceTalent {
     String firstName;
     String lastName;
-    String email;
-    String messengerId;
-    String contactNumber;
-    String countryCode;
     String primaryLanguage;
+    String dateOfBirthMonth;
+    String countryCode;
+    String contactNumber;
+    String messengerType;
+    String messengerId;
+    String email;
+    String office;
+    String status;
 }
