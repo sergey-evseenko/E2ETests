@@ -1,18 +1,25 @@
 package test;
 
+import com.github.javafaker.Faker;
 import models.VoiceSample;
-import org.fluttercode.datafactory.impl.DataFactory;
 
 public class VoiceSampleFactory {
 
-    public static VoiceSample getVoiceSample() {
-        DataFactory df = new DataFactory();
+    public static VoiceSample getVoiceSample(String voiceTalent, String language, String genre, String ageRange, String voiceRange, String characteristic, String sampleType, String filePath) {
+        Faker faker = new Faker();
+
         VoiceSample voiceSample = new VoiceSample(
-                df.getRandomText(10),
-                "3 Germane Obrien",
-                "Russian",
-                df.getRandomText(100),
-                "src/test/resources/QA.mp3"
+                faker.name().title(),
+                voiceTalent,
+                language,
+                genre,
+                ageRange,
+                voiceRange,
+                characteristic,
+                faker.name().title(),
+                filePath,
+                sampleType
+
         );
         return voiceSample;
     }

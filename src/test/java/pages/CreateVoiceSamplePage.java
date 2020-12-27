@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class CreateVoiceSamplePage extends BasePage {
 
@@ -44,6 +45,8 @@ public class CreateVoiceSamplePage extends BasePage {
     WebElement editButton;
     @FindBy(id = "voiceTalent_list_0")
     WebElement elementInTheList;
+    @FindBy(id = "previewAudio")
+    WebElement previewAudio;
 
     public CreateVoiceSamplePage(WebDriver driver) {
         super(driver);
@@ -66,40 +69,70 @@ public class CreateVoiceSamplePage extends BasePage {
     public CreateVoiceSamplePage provideDataAndSave(VoiceSample voiceSample) {
 
         inputTitle.sendKeys(voiceSample.getTitle());
-        inputLanguage.sendKeys(voiceSample.getLanguage(), Keys.ENTER);
-        radioButtonActing.click();
-        inputGenres.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
-        inputAgeRange.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
-        inputVoiceRange.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
-        inputCharacteristics.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
-        inputInternalNote.sendKeys(voiceSample.getInternalNote());
-        inputUploadAudio.sendKeys("/Users/sergeyevseenko/IdeaProjects/Ivoice/src/test/resources/QA.mp3");
-
         inputVoiceTalent.sendKeys(voiceSample.getVoiceTalent());
         wait.until(ExpectedConditions.invisibilityOf(elementInTheList));
         inputVoiceTalent.sendKeys(Keys.ENTER);
-
+        inputLanguage.sendKeys(voiceSample.getLanguage(), Keys.ENTER);
+        inputGenres.sendKeys(voiceSample.getGenre(), Keys.ENTER);
+        selectValue("ageRange", voiceSample.getAgeRange());
+        inputVoiceRange.sendKeys(voiceSample.getVoiceRange(), Keys.ENTER);
+        inputCharacteristics.sendKeys(voiceSample.getCharacteristic(), Keys.ENTER);
+        inputInternalNote.sendKeys(voiceSample.getInternalNote());
+        inputUploadAudio.sendKeys(voiceSample.getFilePath());
         submitButton.click();
         wait.until(ExpectedConditions.visibilityOf(messageSuccessSaving));
         return this;
     }
 
     public CreateVoiceSamplePage verifySavedData(VoiceSample voiceSample) {
-        String locator = "//input[@id='%s']/../..//span[@class='ant-select-selection-item']";
+        String expectedLink = "https://ivoice-voice-samples.s3.us-east-2.amazonaws.com/QA.mp3";
+
+        String locatorDropdown = "//input[@id='%s']//..//..//span[@class='ant-select-selection-item']";
+        String locatorMultiDropdown = "//input[@id='%s']//..//..//span[@class='ant-select-selection-item-content']";
+
+        WebElement valueVoiceTalent = driver.findElement(By.xpath(String.format(locatorDropdown, "voiceTalent")));
+        WebElement valueLanguage = driver.findElement(By.xpath(String.format(locatorDropdown, "language")));
+        WebElement valueGenre = driver.findElement(By.xpath(String.format(locatorMultiDropdown, "genreEntities")));
+        WebElement valueAgeRange = driver.findElement(By.xpath(String.format(locatorDropdown, "ageRange")));
+        WebElement valueVoiceRange = driver.findElement(By.xpath(String.format(locatorMultiDropdown, "voiceRangeEntities")));
+        WebElement valueCharacteristic = driver.findElement(By.xpath(String.format(locatorMultiDropdown, "characteristicEntities")));
+
+
         assertEquals(inputTitle.getAttribute("value"), voiceSample.getTitle(), "Invalid title name");
-        assertEquals(driver.findElement(By.xpath(String.format(locator, "voiceTalent"))).getText(), voiceSample.getVoiceTalent(), "Invalid voice talent");
-        assertEquals(driver.findElement(By.xpath(String.format(locator, "language"))).getText(), voiceSample.getLanguage(), "Invalid voice talent");
+        //assertEquals(valueVoiceTalent.getAttribute("title"), voiceSample.getVoiceTalent(), "Invalid voice Talent");
+        assertEquals(valueLanguage.getAttribute("title"), voiceSample.getLanguage(), "Invalid language");
+        assertTrue(radioButtonActing.isSelected());
+        assertEquals(valueGenre.getText(), voiceSample.getGenre(), "Invalid genre");
+        assertEquals(valueAgeRange.getAttribute("title"), voiceSample.getAgeRange(), "Invalid age range");
+        assertEquals(valueVoiceRange.getText(), voiceSample.getVoiceRange(), "Invalid voice range");
+        assertEquals(valueCharacteristic.getText(), voiceSample.getCharacteristic(), "Invalid genre characteristic");
         assertEquals(inputInternalNote.getText(), voiceSample.getInternalNote(), "Invalid title name");
+        assertEquals(previewAudio.getAttribute("src"), expectedLink, "Invalid preview audio");
         return this;
     }
 
     public CreateVoiceSamplePage editAndSaveData(VoiceSample voiceSample) {
         editButton.click();
+        String locatorCrossButton = "//input[@id='%s']//..//..//span[@aria-label='close']";
+
+        WebElement crossButtonForGenre = driver.findElement(By.xpath(String.format(locatorCrossButton, "genreEntities")));
+        WebElement crossButtonForVoiceRange = driver.findElement(By.xpath(String.format(locatorCrossButton, "voiceRangeEntities")));
+        WebElement crossButtonForCharacteristic = driver.findElement(By.xpath(String.format(locatorCrossButton, "characteristicEntities")));
+
         inputTitle.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceSample.getTitle());
+        inputLanguage.sendKeys(voiceSample.getLanguage(), Keys.ENTER);
+        crossButtonForGenre.click();
+        inputGenres.sendKeys(voiceSample.getGenre(), Keys.ENTER);
+        selectValue("ageRange", voiceSample.getAgeRange());
+        crossButtonForVoiceRange.click();
+        inputVoiceRange.sendKeys(voiceSample.getVoiceRange(), Keys.ENTER);
+        crossButtonForCharacteristic.click();
+        inputCharacteristics.sendKeys(voiceSample.getCharacteristic(), Keys.ENTER);
         inputInternalNote.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceSample.getInternalNote());
         submitSampleButton.click();
         wait.until(ExpectedConditions.visibilityOf(messageSuccessUpdating));
         return this;
+
     }
 
 }

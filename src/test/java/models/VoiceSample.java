@@ -9,6 +9,11 @@ public class VoiceSample {
     String title;
     String voiceTalent;
     String language;
+    String genre;
+    String ageRange;
+    String voiceRange;
+    String characteristic;
     String internalNote;
     String filePath;
+    String sampleType;
 }

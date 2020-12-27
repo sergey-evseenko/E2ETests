@@ -9,11 +9,9 @@ public class VoiceTalent {
     String firstName;
     String lastName;
     String primaryLanguage;
-    String dateOfBirthMonth;
+    String dateOfBirth;
     String countryCode;
     String contactNumber;
-    String messengerType;
-    String messengerId;
     String email;
     String office;
     String status;

@@ -16,10 +16,7 @@ import static org.testng.Assert.assertTrue;
 
 public class CreateVoiceTalentPage extends BasePage {
 
-    @FindBy(xpath = "//button[@type='submit']")
-    WebElement submitTalentButton;
-    @FindBy(xpath = "//span[contains(text(), 'Submit')]")
-    WebElement submitSampleButton;
+
     @FindBy(id = "firstName")
     WebElement inputFirstName;
     @FindBy(id = "lastName")
@@ -28,20 +25,12 @@ public class CreateVoiceTalentPage extends BasePage {
     WebElement radioButtonMale;
     @FindBy(id = "primaryLanguage")
     WebElement inputPrimaryLanguage;
-    @FindBy(id = "monthOfBirthday")
-    WebElement inputMonthOfBirthday;
-    @FindBy(id = "dayOfBirthday")
-    WebElement inputDayOfBirthday;
-    @FindBy(id = "yearOfBirthday")
-    WebElement inputYearOfBirthday;
+    @FindBy(id = "dateOfBirth")
+    WebElement inputDateOfBirth;
     @FindBy(id = "contact_numbers_0_phoneCountryCode")
     WebElement inputPhoneCountryCode;
     @FindBy(id = "contact_numbers_0_phoneNumber")
     WebElement inputContactNumber;
-    @FindBy(id = "messengers_0_messengerType")
-    WebElement inputMessengerType;
-    @FindBy(id = "messengers_0_messengerId")
-    WebElement inputMessengerId;
     @FindBy(id = "email")
     WebElement inputEmail;
     @FindBy(id = "status")
@@ -68,6 +57,10 @@ public class CreateVoiceTalentPage extends BasePage {
     WebElement inputAgeRange;
     @FindBy(css = ".ant-table-row.ant-table-row-level-0")
     WebElement voiceSamplesTable;
+    @FindBy(xpath = "//button[@type='submit']")
+    WebElement submitTalentButton;
+    @FindBy(xpath = "//span[contains(text(), 'Submit')]")
+    WebElement submitSampleButton;
 
 
     public CreateVoiceTalentPage(WebDriver driver) {
@@ -91,37 +84,22 @@ public class CreateVoiceTalentPage extends BasePage {
 
         inputFirstName.sendKeys(voiceTalent.getFirstName());
         inputLastName.sendKeys(voiceTalent.getLastName());
-        inputContactNumber.sendKeys(voiceTalent.getContactNumber());
-        inputMessengerId.sendKeys(voiceTalent.getMessengerId());
-        inputEmail.sendKeys(voiceTalent.getEmail());
         inputPrimaryLanguage.sendKeys(voiceTalent.getPrimaryLanguage(), Keys.ENTER);
+        inputDateOfBirth.sendKeys(voiceTalent.getDateOfBirth(), Keys.ENTER);
         inputPhoneCountryCode.sendKeys(voiceTalent.getCountryCode(), Keys.ENTER);
-        inputYearOfBirthday.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
-        inputDayOfBirthday.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
-        selectValue("monthOfBirthday", voiceTalent.getDateOfBirthMonth());
-        selectValue("messengers_0_messengerType", voiceTalent.getMessengerType());
-        selectValue("office", voiceTalent.getOffice());
+        inputContactNumber.sendKeys(voiceTalent.getContactNumber());
+        inputEmail.sendKeys(voiceTalent.getEmail());
+        inputOffice.sendKeys(voiceTalent.getOffice(), Keys.ENTER);
         selectValue("status", voiceTalent.getStatus());
         submitTalentButton.click();
         wait.until(ExpectedConditions.visibilityOf(messageSuccessSaving));
         return this;
     }
 
-    public void selectValue(String id, String value) {
-
-        String locatorForClick = String.format("//input[@id='%s']//..//..", id);
-        driver.findElement(By.xpath(locatorForClick)).click();
-        String locatorForSelect = String.format("//div[@label='%s']", value);
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locatorForSelect)));
-        driver.findElement(By.xpath(locatorForSelect)).click();
-    }
-
     public CreateVoiceTalentPage verifySavedData(VoiceTalent voiceTalent) {
         String locatorDropdown = "//input[@id='%s']//..//..//span[@class='ant-select-selection-item']";
         WebElement valuePrimaryLanguage = driver.findElement(By.xpath(String.format(locatorDropdown, "primaryLanguage")));
-        WebElement valueMonthOfBirthday = driver.findElement(By.xpath(String.format(locatorDropdown, "monthOfBirthday")));
         WebElement valuePhoneCountryCode = driver.findElement(By.xpath(String.format(locatorDropdown, "contact_numbers_0_phoneCountryCode")));
-        WebElement valueMessengerType = driver.findElement(By.xpath(String.format(locatorDropdown, "messengers_0_messengerType")));
         WebElement valueOffice = driver.findElement(By.xpath(String.format(locatorDropdown, "office")));
         WebElement valueStatus = driver.findElement(By.xpath(String.format(locatorDropdown, "status")));
 
@@ -129,11 +107,9 @@ public class CreateVoiceTalentPage extends BasePage {
         assertEquals(inputLastName.getAttribute("value"), voiceTalent.getLastName(), "Invalid last name");
         assertTrue(radioButtonMale.isSelected());
         assertEquals(valuePrimaryLanguage.getAttribute("title"), voiceTalent.getPrimaryLanguage(), "Invalid primary language");
-        //assertEquals(valueMonthOfBirthday.getAttribute("title"), voiceTalent.getDateOfBirthMonth(), "Invalid month of birthday");
+        assertEquals(inputDateOfBirth.getAttribute("value"), voiceTalent.getDateOfBirth(), "Invalid date of birthday");
         assertEquals(valuePhoneCountryCode.getAttribute("title"), voiceTalent.getCountryCode(), "Invalid country code");
         assertEquals(inputContactNumber.getAttribute("value"), voiceTalent.getContactNumber(), "Invalid contact number");
-        assertEquals(valueMessengerType.getAttribute("title"), voiceTalent.getMessengerType(), "Invalid messenger type");
-        assertEquals(inputMessengerId.getAttribute("value"), voiceTalent.getMessengerId(), "Invalid messenger id");
         assertEquals(inputEmail.getAttribute("value"), voiceTalent.getEmail(), "Invalid email");
         assertEquals(valueOffice.getAttribute("title"), voiceTalent.getOffice(), "Invalid office");
         assertEquals(valueStatus.getAttribute("title"), voiceTalent.getStatus(), "Invalid status");
@@ -145,14 +121,12 @@ public class CreateVoiceTalentPage extends BasePage {
 
         inputFirstName.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getFirstName());
         inputLastName.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getLastName());
-        inputContactNumber.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getContactNumber());
-        inputMessengerId.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getMessengerId());
-        inputEmail.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getEmail());
         inputPrimaryLanguage.sendKeys(voiceTalent.getPrimaryLanguage(), Keys.ENTER);
+        inputDateOfBirth.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getDateOfBirth(), Keys.ENTER);
         inputPhoneCountryCode.sendKeys(voiceTalent.getCountryCode(), Keys.ENTER);
-        selectValue("monthOfBirthday", voiceTalent.getDateOfBirthMonth());
-        selectValue("messengers_0_messengerType", voiceTalent.getMessengerType());
-        selectValue("office", voiceTalent.getOffice());
+        inputContactNumber.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getContactNumber());
+        inputEmail.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getEmail());
+        inputOffice.sendKeys(voiceTalent.getOffice(), Keys.ENTER);
         selectValue("status", voiceTalent.getStatus());
         submitTalentButton.click();
         wait.until(ExpectedConditions.visibilityOf(messageSuccessUpdating));
@@ -164,9 +138,9 @@ public class CreateVoiceTalentPage extends BasePage {
         uploadButton.click();
         inputTitle.sendKeys(voiceSample.getTitle());
         inputLanguage.sendKeys(voiceSample.getLanguage(), Keys.ENTER);
-        inputSampleType.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
-        inputAgeRange.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
-        inputUploadAudio.sendKeys("/Users/sergeyevseenko/IdeaProjects/Ivoice/src/test/resources/QA.mp3");
+        selectValue("uploadAudioSample_sampleType", voiceSample.getSampleType());
+        selectValue("uploadAudioSample_ageRange", voiceSample.getAgeRange());
+        inputUploadAudio.sendKeys(voiceSample.getFilePath());
         submitSampleButton.click();
         submitTalentButton.click();
         wait.until(ExpectedConditions.visibilityOf(messageSuccessUpdating));
@@ -178,4 +152,5 @@ public class CreateVoiceTalentPage extends BasePage {
         assertEquals(listOfVoiceSamples.size(), 1, "Voice sample was uploaded incorrectly");
         return this;
     }
+
 }

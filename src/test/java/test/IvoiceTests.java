@@ -7,6 +7,16 @@ import org.testng.annotations.Test;
 
 public class IvoiceTests extends BaseTest {
 
+    String file = "/Users/sergeyevseenko/IdeaProjects/Ivoice/src/test/resources/QA.mp3";
+
+    VoiceTalent voiceTalent = VoiceTalentFactory.getVoiceTalent("Russian", "BELARUS (375)", "Berlin", "Active", "June 07 1989"),
+            updatedVoiceTalent = VoiceTalentFactory.getVoiceTalent("English", "ALBANIA (355)", "Amasterdam", "Inactive", "June 08 1990");
+    //String voiceTalentName = updatedVoiceTalent.getFirstName() + " " + updatedVoiceTalent.getLastName();
+    String voiceTalentName = "John Doe";
+
+    VoiceSample voiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "Russian", "Comedy", "21-30", "Low-Pitched", "Energetic", "Song", file),
+            updatedVoiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "English", "Animation", "31-50", "High-Pitched", "Corporate", "Song", file);
+
     @BeforeClass
     public void validLogin() {
         loginPage
@@ -18,13 +28,10 @@ public class IvoiceTests extends BaseTest {
 
     @Test
     public void voiceTalentTest() {
-        VoiceTalent newVoiceTalent = VoiceTalentFactory.getVoiceTalent(),
-                updatedVoiceTalent = VoiceTalentFactory.getVoiceTalent();
-        VoiceSample voiceSample = VoiceSampleFactory.getVoiceSample();
         createVoiceTalentPage
                 .openPage(url)
-                .provideDataAndSave(newVoiceTalent)
-                .verifySavedData(newVoiceTalent)
+                .provideDataAndSave(voiceTalent)
+                .verifySavedData(voiceTalent)
                 .editAndSaveData(updatedVoiceTalent)
                 .verifySavedData(updatedVoiceTalent)
                 .editAndUploadVoiceSample(voiceSample)
@@ -33,12 +40,10 @@ public class IvoiceTests extends BaseTest {
 
     @Test
     public void voiceSampleTest() {
-        VoiceSample newVoiceSample = VoiceSampleFactory.getVoiceSample(),
-                updatedVoiceSample = VoiceSampleFactory.getVoiceSample();
         createVoiceSamplePage
                 .openPage(url)
-                .provideDataAndSave(newVoiceSample)
-                .verifySavedData(newVoiceSample)
+                .provideDataAndSave(voiceSample)
+                .verifySavedData(voiceSample)
                 .editAndSaveData(updatedVoiceSample)
                 .verifySavedData(updatedVoiceSample);
 

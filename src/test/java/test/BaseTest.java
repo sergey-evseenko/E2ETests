@@ -17,9 +17,7 @@ public abstract class BaseTest {
     CreateVoiceTalentPage createVoiceTalentPage;
     CreateVoiceSamplePage createVoiceSamplePage;
     MainPage mainPage;
-    String id;
-    String password;
-    String url;
+    String id, password, url, filePath;
 
     private WebDriver driver;
 
@@ -37,6 +35,8 @@ public abstract class BaseTest {
         id = props.get("id");
         password = props.get("password");
         url = props.get("url");
+        filePath = props.get("filePath");
+
     }
 
     @AfterClass(description = "Closing Chrome Driver", alwaysRun = true)
