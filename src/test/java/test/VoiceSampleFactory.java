@@ -17,7 +17,7 @@ public class VoiceSampleFactory {
                 voiceRange,
                 characteristic,
                 faker.name().title(),
-                filePath,
+                System.getProperty("user.dir") + filePath,
                 sampleType
 
         );

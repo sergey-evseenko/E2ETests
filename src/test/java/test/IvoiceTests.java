@@ -5,9 +5,11 @@ import models.VoiceTalent;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.io.File;
+
 public class IvoiceTests extends BaseTest {
 
-    String file = "/Users/sergeyevseenko/IdeaProjects/Ivoice/src/test/resources/QA.mp3";
+    String file = File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "QA.mp3";
 
     VoiceTalent voiceTalent = VoiceTalentFactory.getVoiceTalent("Russian", "BELARUS (375)", "Berlin", "Active", "June 07 1989"),
             updatedVoiceTalent = VoiceTalentFactory.getVoiceTalent("English", "ALBANIA (355)", "Amasterdam", "Inactive", "June 08 1990");
