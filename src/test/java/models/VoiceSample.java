@@ -14,6 +14,9 @@ public class VoiceSample {
     String voiceRange;
     String characteristic;
     String internalNote;
-    String filePath;
     String sampleType;
+    String filePath;
+    String entryType;
+    String projectTitle;
+    String roleName;
 }
