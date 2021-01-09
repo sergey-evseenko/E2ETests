@@ -24,7 +24,8 @@ public abstract class BasePage {
 
         String locatorForClick = String.format("//input[@id='%s']//..//..", id);
         driver.findElement(By.xpath(locatorForClick)).click();
-        String locatorForSelect = String.format("//div[@label='%s']", value);
+        //String locatorForSelect = String.format("//div[@label='%s']", value);
+        String locatorForSelect = String.format("//div[@title='%s']", value);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locatorForSelect)));
         driver.findElement(By.xpath(locatorForSelect)).click();
     }
