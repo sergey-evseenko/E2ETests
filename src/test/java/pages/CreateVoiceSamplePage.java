@@ -47,6 +47,10 @@ public class CreateVoiceSamplePage extends BasePage {
     WebElement elementInTheList;
     @FindBy(id = "previewAudio")
     WebElement previewAudio;
+    @FindBy(id = "projectTitle")
+    WebElement inputProjectTitle;
+    @FindBy(id = "roleName")
+    WebElement inputRoleName;
 
     public CreateVoiceSamplePage(WebDriver driver) {
         super(driver);
@@ -79,6 +83,9 @@ public class CreateVoiceSamplePage extends BasePage {
         inputCharacteristics.sendKeys(voiceSample.getCharacteristic(), Keys.ENTER);
         inputInternalNote.sendKeys(voiceSample.getInternalNote());
         inputUploadAudio.sendKeys(voiceSample.getFilePath());
+        selectValue("entryType", voiceSample.getEntryType());
+        inputProjectTitle.sendKeys(voiceSample.getProjectTitle());
+        inputRoleName.sendKeys(voiceSample.getRoleName());
         submitButton.click();
         wait.until(ExpectedConditions.visibilityOf(messageSuccessSaving));
         return this;
@@ -99,6 +106,7 @@ public class CreateVoiceSamplePage extends BasePage {
 
 
         assertEquals(inputTitle.getAttribute("value"), voiceSample.getTitle(), "Invalid title name");
+        //ToDo implement validation for Voice Talent Name
         //assertEquals(valueVoiceTalent.getAttribute("title"), voiceSample.getVoiceTalent(), "Invalid voice Talent");
         assertEquals(valueLanguage.getAttribute("title"), voiceSample.getLanguage(), "Invalid language");
         assertTrue(radioButtonActing.isSelected());
@@ -108,6 +116,8 @@ public class CreateVoiceSamplePage extends BasePage {
         assertEquals(valueCharacteristic.getText(), voiceSample.getCharacteristic(), "Invalid genre characteristic");
         assertEquals(inputInternalNote.getText(), voiceSample.getInternalNote(), "Invalid title name");
         assertEquals(previewAudio.getAttribute("src"), expectedLink, "Invalid preview audio");
+        assertEquals(inputProjectTitle.getAttribute("value"), voiceSample.getProjectTitle(), "Invalid project title");
+        assertEquals(inputRoleName.getAttribute("value"), voiceSample.getRoleName(), "Invalid role name");
         return this;
     }
 
@@ -129,6 +139,8 @@ public class CreateVoiceSamplePage extends BasePage {
         crossButtonForCharacteristic.click();
         inputCharacteristics.sendKeys(voiceSample.getCharacteristic(), Keys.ENTER);
         inputInternalNote.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceSample.getInternalNote());
+        inputProjectTitle.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceSample.getProjectTitle());
+        inputRoleName.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceSample.getRoleName());
         submitSampleButton.click();
         wait.until(ExpectedConditions.visibilityOf(messageSuccessUpdating));
         return this;
