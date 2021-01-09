@@ -8,13 +8,13 @@ import org.testng.annotations.Test;
 
 public class IvoiceTests extends BaseTest {
 
-    VoiceTalent voiceTalent = VoiceTalentFactory.getVoiceTalent("Russian", "BELARUS (375)", "Berlin", "Active", "June 07 1989"),
-            updatedVoiceTalent = VoiceTalentFactory.getVoiceTalent("English", "ALBANIA (355)", "Amasterdam", "Inactive", "June 08 1990");
+    VoiceTalent voiceTalent = VoiceTalentFactory.getVoiceTalent("Afar", "ANGOLA (244)", "Amasterdam", "Active", "June 07 1989"),
+            updatedVoiceTalent = VoiceTalentFactory.getVoiceTalent("Afrikaans", "ALGERIA (213)", "Bangkok", "Inactive", "June 08 1990");
     //String voiceTalentName = updatedVoiceTalent.getFirstName() + " " + updatedVoiceTalent.getLastName();
     String voiceTalentName = "John Doe";
 
-    VoiceSample voiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "Russian", "Comedy", "21-30", "Low-Pitched", "Energetic", "Song", filePath, "Manual"),
-            updatedVoiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "English", "Animation", "31-50", "High-Pitched", "Corporate", "Song", filePath, "Manual");
+    VoiceSample voiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "Afar", "Action", "0-12", "High-Pitched", "Corporate", "Song", filePath, "Manual"),
+            updatedVoiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "Afrikaans", "Animation", "13-19", "Low-Pitched", "Energetic", "Song", filePath, "Manual");
 
     @BeforeClass
     public void validLogin() {
@@ -27,24 +27,26 @@ public class IvoiceTests extends BaseTest {
 
     @Test
     public void voiceTalentTest() {
-        createVoiceTalentPage
+        voiceTalentPage
                 .openPage(url)
-                .provideDataAndSave(voiceTalent)
-                .verifySavedData(voiceTalent)
-                .editAndSaveData(updatedVoiceTalent)
-                .verifySavedData(updatedVoiceTalent)
-                .editAndUploadVoiceSample(voiceSample)
-                .verifyUploadedVoiceSample(voiceSample);
+                .createAndSave(voiceTalent)
+                .verify(voiceTalent)
+                .updateAndSave(updatedVoiceTalent)
+                .verify(updatedVoiceTalent)
+                .editAndClickUpload()
+                .upload(voiceSample)
+                .save()
+                .verifyUploadedVoiceSample();
     }
 
     @Test
     public void voiceSampleTest() {
-        createVoiceSamplePage
+        voiceSamplePage
                 .openPage(url)
-                .provideDataAndSave(voiceSample)
-                .verifySavedData(voiceSample)
-                .editAndSaveData(updatedVoiceSample)
-                .verifySavedData(updatedVoiceSample);
+                .createAndSave(voiceSample)
+                .verify(voiceSample)
+                .updateAndSave(updatedVoiceSample)
+                .verify(updatedVoiceSample);
     }
 
 }

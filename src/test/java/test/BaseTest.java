@@ -16,8 +16,9 @@ public abstract class BaseTest {
     PropertyManager props;
     LoginPage loginPage;
     GoogleSignInPage googleSignInPage;
-    CreateVoiceTalentPage createVoiceTalentPage;
-    CreateVoiceSamplePage createVoiceSamplePage;
+    VoiceTalentPage voiceTalentPage;
+    VoiceSamplePage voiceSamplePage;
+    UploadPage uploadPage;
     MainPage mainPage;
     String id, password, url;
     String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "QA.mp3";
@@ -29,13 +30,7 @@ public abstract class BaseTest {
 
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("start-maximized"); // open Browser in maximized mode
-        options.addArguments("disable-infobars"); // disabling infobars
-        options.addArguments("--disable-extensions"); // disabling extensions
-        options.addArguments("--disable-gpu"); // applicable to windows os only
-        options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
-        options.addArguments("--no-sandbox"); // Bypass OS security model
-        options.setHeadless(true);
+        options.setHeadless(false);
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
@@ -43,8 +38,9 @@ public abstract class BaseTest {
 
         loginPage = new LoginPage(driver);
         googleSignInPage = new GoogleSignInPage(driver);
-        createVoiceTalentPage = new CreateVoiceTalentPage(driver);
-        createVoiceSamplePage = new CreateVoiceSamplePage(driver);
+        voiceTalentPage = new VoiceTalentPage(driver);
+        voiceSamplePage = new VoiceSamplePage(driver);
+        uploadPage = new UploadPage(driver);
         mainPage = new MainPage(driver);
         props = new PropertyManager();
         id = props.get("id");
