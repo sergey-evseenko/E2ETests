@@ -20,5 +20,4 @@ build:
 test:
   stage: test
   script:
-    - ls -la
     - mvn clean test
