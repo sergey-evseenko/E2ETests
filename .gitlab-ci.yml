@@ -1,4 +1,4 @@
-image: maven:latest
+image: markhobson/maven-chrome:jdk-11
 
 cache:
   paths:
