@@ -5,7 +5,7 @@ import models.VoiceSample;
 
 public class VoiceSampleFactory {
 
-    public static VoiceSample getVoiceSample(String voiceTalent, String language, String genre, String ageRange, String voiceRange, String characteristic, String sampleType, String filePath) {
+    public static VoiceSample getVoiceSample(String voiceTalent, String language, String genre, String ageRange, String voiceRange, String characteristic, String sampleType, String filePath, String entryType) {
         Faker faker = new Faker();
 
         VoiceSample voiceSample = new VoiceSample(
@@ -17,9 +17,11 @@ public class VoiceSampleFactory {
                 voiceRange,
                 characteristic,
                 faker.name().title(),
-                System.getProperty("user.dir") + filePath,
-                sampleType
-
+                sampleType,
+                filePath,
+                entryType,
+                faker.name().title(),
+                faker.name().title()
         );
         return voiceSample;
     }

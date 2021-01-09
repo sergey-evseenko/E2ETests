@@ -5,19 +5,16 @@ import models.VoiceTalent;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.io.File;
 
 public class IvoiceTests extends BaseTest {
-
-    String file = File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "QA.mp3";
 
     VoiceTalent voiceTalent = VoiceTalentFactory.getVoiceTalent("Russian", "BELARUS (375)", "Berlin", "Active", "June 07 1989"),
             updatedVoiceTalent = VoiceTalentFactory.getVoiceTalent("English", "ALBANIA (355)", "Amasterdam", "Inactive", "June 08 1990");
     //String voiceTalentName = updatedVoiceTalent.getFirstName() + " " + updatedVoiceTalent.getLastName();
     String voiceTalentName = "John Doe";
 
-    VoiceSample voiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "Russian", "Comedy", "21-30", "Low-Pitched", "Energetic", "Song", file),
-            updatedVoiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "English", "Animation", "31-50", "High-Pitched", "Corporate", "Song", file);
+    VoiceSample voiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "Russian", "Comedy", "21-30", "Low-Pitched", "Energetic", "Song", filePath, "Manual"),
+            updatedVoiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "English", "Animation", "31-50", "High-Pitched", "Corporate", "Song", filePath, "Manual");
 
     @BeforeClass
     public void validLogin() {
@@ -48,8 +45,6 @@ public class IvoiceTests extends BaseTest {
                 .verifySavedData(voiceSample)
                 .editAndSaveData(updatedVoiceSample)
                 .verifySavedData(updatedVoiceSample);
-
     }
-
 
 }
