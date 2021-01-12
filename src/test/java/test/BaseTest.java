@@ -35,7 +35,6 @@ public abstract class BaseTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
 
-
         loginPage = new LoginPage(driver);
         googleSignInPage = new GoogleSignInPage(driver);
         voiceTalentPage = new VoiceTalentPage(driver);
