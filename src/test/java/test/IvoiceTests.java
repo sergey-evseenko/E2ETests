@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 public class IvoiceTests extends BaseTest {
 
-    VoiceTalent voiceTalent = VoiceTalentFactory.getVoiceTalent("Afar", "ANGOLA (244)", "Amasterdam", "Active", "June 07 1989"),
+    VoiceTalent voiceTalent = VoiceTalentFactory.getVoiceTalent("Afar", "ANGOLA (244)", "Amsterdam", "Active", "June 07 1989"),
             updatedVoiceTalent = VoiceTalentFactory.getVoiceTalent("Afrikaans", "ALGERIA (213)", "Bangkok", "Inactive", "June 08 1990");
     //String voiceTalentName = updatedVoiceTalent.getFirstName() + " " + updatedVoiceTalent.getLastName();
     String voiceTalentName = "John Doe";
