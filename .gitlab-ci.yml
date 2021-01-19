@@ -22,7 +22,8 @@ test:
   script:
     - mvn clean test
     - mvn allure:report
+    - mvn verify
   when: always
     reports:
       junit:
-        - target/site/allure-maven-plugin/index.html
+        - target/surefire-reports/TEST-*.xml
