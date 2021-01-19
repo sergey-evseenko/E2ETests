@@ -1,12 +1,11 @@
 package pages;
 
-import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import utils.AllureUtils;
 
-@Log4j2
 public class GoogleSignInPage extends BasePage {
 
     @FindBy(id = "identifierId")
@@ -25,6 +24,7 @@ public class GoogleSignInPage extends BasePage {
     @Override
     public BasePage isPageOpened() {
         wait.until(ExpectedConditions.visibilityOf(emailInput));
+        AllureUtils.takeScreenshot(driver);
         return null;
     }
 
@@ -39,10 +39,15 @@ public class GoogleSignInPage extends BasePage {
             driver.switchTo().window(winHandle);
         }
         isPageOpened();
+        AllureUtils.takeScreenshot(driver);
         emailInput.sendKeys(email);
+        AllureUtils.takeScreenshot(driver);
         identifierNext.click();
+        AllureUtils.takeScreenshot(driver);
         passwordInput.sendKeys(pass);
+        AllureUtils.takeScreenshot(driver);
         passwordNext.click();
+        AllureUtils.takeScreenshot(driver);
         driver.switchTo().window(winHandleBefore);
         return new MainPage(driver);
     }
