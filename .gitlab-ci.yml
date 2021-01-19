@@ -21,19 +21,6 @@ test:
   stage: test
   script:
     - mvn clean test
-report:
-  stage: test
-  script:
-    - mvn allure:report
-java:
-  stage: test
-  script:
-    - mvn verify
-  artifacts:
-    when: always
-    reports:
-      junit:
-        - target/site/allure-maven-plugin/index.html
 
 
 
