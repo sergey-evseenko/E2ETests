@@ -24,7 +24,6 @@ public class GoogleSignInPage extends BasePage {
     @Override
     public BasePage isPageOpened() {
         wait.until(ExpectedConditions.visibilityOf(emailInput));
-        AllureUtils.takeScreenshot(driver);
         return null;
     }
 

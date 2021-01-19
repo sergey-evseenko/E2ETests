@@ -22,8 +22,8 @@ test:
   stage: test
   script:
     - mvn clean test
-
-report:
-  stage: report
-  script:
     - mvn allure:report
+  when: always
+    reports:
+      junit:
+        - target/site/allure-maven-plugin/index.html
