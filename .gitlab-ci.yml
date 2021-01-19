@@ -3,7 +3,6 @@ image: markhobson/maven-chrome:jdk-11
 stages:
   - build
   - test
-  - report
 
 variables:
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
@@ -22,6 +21,10 @@ test:
   stage: test
   script:
     - mvn clean test
+report:
+  stage: test
+  script:
+    - mvn allure:report
 java:
   stage: test
   script:
@@ -30,8 +33,7 @@ java:
     when: always
     reports:
       junit:
-        - target/surefire-reports/TEST-*.xml
-        - target/failsafe-reports/TEST-*.xml
+        - target/site/allure-maven-plugin/index.html
 
 
 
