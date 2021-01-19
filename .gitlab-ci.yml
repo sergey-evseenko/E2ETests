@@ -23,4 +23,10 @@ test:
   script:
     - mvn clean test
     - mvn allure:report
+    artifacts:
+      when: always
+      reports:
+        junit:
+          - target/site/allure-maven-plugin/index.html
+
 
