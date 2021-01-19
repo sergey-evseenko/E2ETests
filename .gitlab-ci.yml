@@ -3,6 +3,7 @@ image: markhobson/maven-chrome:jdk-11
 stages:
   - build
   - test
+  - report
 
 variables:
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
@@ -21,4 +22,8 @@ test:
   stage: test
   script:
     - mvn clean test
+
+report:
+  stage: report
+  script:
     - mvn allure:report
