@@ -22,5 +22,14 @@ test:
   script:
     - mvn clean test
 
+after_script:
+  - cd Ivoice
+  - mvn allure:report
+artifacts:
+  when: always
+  name: "Report"
+  paths: "-$CI_PROJECT_DIR/Ivoice/target/site/allure-maven-plugin/"
+  expire_in: 15 days
+
 
 
