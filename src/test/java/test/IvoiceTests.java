@@ -5,7 +5,6 @@ import models.VoiceTalent;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-
 public class IvoiceTests extends BaseTest {
 
     VoiceTalent voiceTalent = VoiceTalentFactory.getVoiceTalent("Afar", "ANGOLA (244)", "Amsterdam", "Active", "June 07 1989"),
@@ -13,8 +12,8 @@ public class IvoiceTests extends BaseTest {
     //String voiceTalentName = updatedVoiceTalent.getFirstName() + " " + updatedVoiceTalent.getLastName();
     String voiceTalentName = "John Doe";
 
-    VoiceSample voiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "Afar", "Action", "0-12", "High-Pitched", "Corporate", "Song", filePath, "Manual"),
-            updatedVoiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "Afrikaans", "Animation", "13-19", "Low-Pitched", "Energetic", "Song", filePath, "Manual");
+    VoiceSample voiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "Afar", "Action", "0-12", "High-Pitched", "Corporate", "Song", "Manual"),
+            updatedVoiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "Afrikaans", "Animation", "13-19", "Low-Pitched", "Energetic", "Song", "Manual");
 
     @BeforeClass
     public void validLogin() {

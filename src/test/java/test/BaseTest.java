@@ -6,12 +6,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import pages.*;
 import utils.PropertyManager;
+import utils.TestListener;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+@Listeners(TestListener.class)
 public abstract class BaseTest {
     PropertyManager props;
     LoginPage loginPage;
@@ -21,7 +23,6 @@ public abstract class BaseTest {
     UploadPage uploadPage;
     MainPage mainPage;
     String id, password, url;
-    String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "Data" + File.separator + "QA.mp3";
 
     private WebDriver driver;
 

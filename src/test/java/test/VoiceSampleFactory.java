@@ -3,9 +3,11 @@ package test;
 import com.github.javafaker.Faker;
 import models.VoiceSample;
 
+import java.io.File;
+
 public class VoiceSampleFactory {
 
-    public static VoiceSample getVoiceSample(String voiceTalent, String language, String genre, String ageRange, String voiceRange, String characteristic, String sampleType, String filePath, String entryType) {
+    public static VoiceSample getVoiceSample(String voiceTalent, String language, String genre, String ageRange, String voiceRange, String characteristic, String sampleType, String entryType) {
         Faker faker = new Faker();
 
         VoiceSample voiceSample = new VoiceSample(
@@ -18,7 +20,7 @@ public class VoiceSampleFactory {
                 characteristic,
                 faker.name().title(),
                 sampleType,
-                filePath,
+                System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "Data" + File.separator + "QA.mp3",
                 entryType,
                 faker.name().title(),
                 faker.name().title()
