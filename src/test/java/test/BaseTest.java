@@ -21,7 +21,7 @@ public abstract class BaseTest {
     UploadPage uploadPage;
     MainPage mainPage;
     String id, password, url;
-    String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "QA.mp3";
+    String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "Data" + File.separator + "QA.mp3";
 
     private WebDriver driver;
 
