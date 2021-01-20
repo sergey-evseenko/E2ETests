@@ -23,8 +23,9 @@ test:
     - mvn clean test
 
 after_script:
-  - cd Ivoice
-  - mvn allure:report
+  stage: test
+  script:
+    - mvn allure:report
 artifacts:
   when: always
   name: "Report"
