@@ -22,5 +22,6 @@ test:
   script:
     - mvn clean test
     - mvn allure:report
+      when: always
 
 
