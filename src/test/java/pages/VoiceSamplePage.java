@@ -17,18 +17,8 @@ public class VoiceSamplePage extends BasePage {
     WebElement inputTitle;
     @FindBy(id = "voiceTalent")
     WebElement inputVoiceTalent;
-    @FindBy(id = "language")
-    WebElement inputLanguage;
     @FindBy(xpath = "//input[@value='1']")
     WebElement radioButtonActing;
-    @FindBy(id = "genreEntities")
-    WebElement inputGenres;
-    @FindBy(id = "ageRange")
-    WebElement inputAgeRange;
-    @FindBy(id = "voiceRangeEntities")
-    WebElement inputVoiceRange;
-    @FindBy(id = "characteristicEntities")
-    WebElement inputCharacteristics;
     @FindBy(id = "internalNote")
     WebElement inputInternalNote;
     @FindBy(xpath = "//button[@type='submit']")
@@ -62,7 +52,6 @@ public class VoiceSamplePage extends BasePage {
     public VoiceSamplePage(WebDriver driver) {
         super(driver);
     }
-
 
     @Override
     public BasePage isPageOpened() {
