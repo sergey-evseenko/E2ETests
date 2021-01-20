@@ -3,7 +3,6 @@ package test;
 import models.VoiceSample;
 import models.VoiceTalent;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 
@@ -40,7 +39,6 @@ public class IvoiceTests extends BaseTest {
                 .verifyUploadedVoiceSample();
     }
 
-    @Ignore
     @Test
     public void voiceSampleTest() {
         voiceSamplePage

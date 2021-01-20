@@ -51,12 +51,13 @@ public class VoiceSamplePage extends BasePage {
     WebElement inputProjectTitle;
     @FindBy(id = "roleName")
     WebElement inputRoleName;
+    @FindBy(id = "entryType")
+    WebElement entryType;
     DropDown languageDropdown = new DropDown(driver, wait, "language");
     DropDown genresDropdown = new DropDown(driver, wait, "genreEntities");
     DropDown ageRangeDropdown = new DropDown(driver, wait, "ageRange");
     DropDown voiceRangeDropdown = new DropDown(driver, wait, "voiceRangeEntities");
     DropDown characteristicDropdown = new DropDown(driver, wait, "characteristicEntities");
-    DropDown entryTypeDropDown = new DropDown(driver, wait, "entryType");
 
     public VoiceSamplePage(WebDriver driver) {
         super(driver);
@@ -91,7 +92,7 @@ public class VoiceSamplePage extends BasePage {
         characteristicDropdown.selectValue(voiceSample.getCharacteristic());
         inputInternalNote.sendKeys(voiceSample.getInternalNote());
         inputUploadAudio.sendKeys(voiceSample.getFilePath());
-        entryTypeDropDown.selectValue(voiceSample.getEntryType());
+        entryType.sendKeys(voiceSample.getEntryType());
         inputProjectTitle.sendKeys(voiceSample.getProjectTitle());
         inputRoleName.sendKeys(voiceSample.getRoleName());
         submitButton.click();
@@ -111,7 +112,7 @@ public class VoiceSamplePage extends BasePage {
         assertEquals(characteristicDropdown.getMultiValue(), voiceSample.getCharacteristic(), "Invalid genre characteristic");
         assertEquals(inputInternalNote.getText(), voiceSample.getInternalNote(), "Invalid title name");
         assertEquals(previewAudio.getAttribute("src"), expectedLink, "Invalid preview audio");
-        assertEquals(entryTypeDropDown.getValue(), voiceSample.getEntryType(), "Invalid entry type");
+        //assertEquals(entryType.getAttribute("value"), voiceSample.getEntryType(), "Invalid entry type");
         assertEquals(inputProjectTitle.getAttribute("value"), voiceSample.getProjectTitle(), "Invalid project title");
         assertEquals(inputRoleName.getAttribute("value"), voiceSample.getRoleName(), "Invalid role name");
         return this;
@@ -131,7 +132,7 @@ public class VoiceSamplePage extends BasePage {
         characteristicDropdown.updateValue(voiceSample.getCharacteristic());
         inputTitle.sendKeys(Keys.ESCAPE);
         inputInternalNote.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceSample.getInternalNote());
-        entryTypeDropDown.selectValue(voiceSample.getEntryType());
+        entryType.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceSample.getEntryType());
         inputProjectTitle.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceSample.getProjectTitle());
         inputRoleName.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceSample.getRoleName());
         submitSampleButton.click();
