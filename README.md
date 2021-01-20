@@ -1,16 +1,23 @@
 # E2E-tests
 
-#### Selenium WebDriver / Maven / TestNG
+#### Tech stack
 
-#### Patterns:
-1. Page object
-2. Page factory
-3. Chain of Invocations
-4. Loadable page/component
-5. Value objects
+* Selenium WebDriver
+* Maven
+* TestNG
 
-**CI:** `Circle CI`
+#### Preconditions:
 
-**Reporting:** `Allure`
+* Need to install maven
+
+#### Commands:
+
+* For running tests use command:
+  `mvn clean test`
+* For generation allure report use command:
+  `mvn allure:report`
+
+**CI:** `gitlabCI`
+
 
 
