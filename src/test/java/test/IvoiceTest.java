@@ -9,13 +9,10 @@ import org.testng.annotations.Test;
 
 public class IvoiceTest extends BaseTest {
 
-    VoiceTalent voiceTalent = VoiceTalentFactory.getVoiceTalent("Afar", "Albania (355)", "Amsterdam", "Active", "June 07 1989"),
-            updatedVoiceTalent = VoiceTalentFactory.getVoiceTalent("Afrikaans", "Algeria (213)", "Bangkok", "Inactive", "June 08 1990");
-    //String voiceTalentName = updatedVoiceTalent.getFirstName() + " " + updatedVoiceTalent.getLastName();
-    String voiceTalentName = "John Doe";
-
-    VoiceSample voiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "Afar", "Action", "0-12", "High-Pitched", "Corporate", "Song", "QA.mp3", "Manual"),
-            updatedVoiceSample = VoiceSampleFactory.getVoiceSample(voiceTalentName, "Afrikaans", "Animation", "13-19", "Low-Pitched", "Energetic", "Song", "QA.mp3", "Manual");
+    VoiceTalent voiceTalent = VoiceTalentFactory.getVoiceTalent(),
+            updatedVoiceTalent = VoiceTalentFactory.getVoiceTalent();
+    VoiceSample voiceSample = VoiceSampleFactory.getVoiceSample("QA.mp3"),
+            updatedVoiceSample = VoiceSampleFactory.getVoiceSample("QA.mp3");
 
     @BeforeClass
     public void login() {
