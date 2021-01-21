@@ -73,12 +73,10 @@ public class VoiceSamplePage extends BasePage {
         wait.until(ExpectedConditions.invisibilityOf(elementInTheList));
         inputVoiceTalent.sendKeys(Keys.ENTER);
         languageDropdown.selectValue(voiceSample.getLanguage());
-        genresDropdown.selectValue(voiceSample.getGenre());
-        inputTitle.sendKeys(Keys.ESCAPE);
+        genresDropdown.selectMultiValue(voiceSample.getGenre(), inputTitle);
         ageRangeDropdown.selectValue(voiceSample.getAgeRange());
-        voiceRangeDropdown.selectValue(voiceSample.getVoiceRange());
-        inputTitle.sendKeys(Keys.ESCAPE);
-        characteristicDropdown.selectValue(voiceSample.getCharacteristic());
+        voiceRangeDropdown.selectMultiValue(voiceSample.getVoiceRange(), inputTitle);
+        characteristicDropdown.selectMultiValue(voiceSample.getCharacteristic(), inputTitle);
         inputInternalNote.sendKeys(voiceSample.getInternalNote());
         inputUploadAudio.sendKeys(voiceSample.getFilePath());
         entryType.sendKeys(voiceSample.getEntryType());
@@ -90,7 +88,7 @@ public class VoiceSamplePage extends BasePage {
     }
 
     public VoiceSamplePage verify(VoiceSample voiceSample) {
-        String expectedLink = "https://ivoice-voice-samples.s3.us-east-2.amazonaws.com/QA.mp3";
+        String expectedLink = "https://ivoice-voice-samples.s3.us-east-2.amazonaws.com/" + voiceSample.getFileName();
 
         assertEquals(inputTitle.getAttribute("value"), voiceSample.getTitle(), "Invalid title name");
         assertEquals(languageDropdown.getValue(), voiceSample.getLanguage(), "Invalid language");

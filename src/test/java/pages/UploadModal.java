@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class UploadPage extends AbstractPage {
+public class UploadModal extends AbstractPage {
 
     @FindBy(id = "uploadAudioSample_audioSample")
     WebElement inputUploadAudio;
@@ -20,12 +20,12 @@ public class UploadPage extends AbstractPage {
     DropDown sampleTypeDropdown = new DropDown(driver, "uploadAudioSample_sampleType");
     DropDown ageRangeDropdown = new DropDown(driver, "uploadAudioSample_ageRange");
 
-    public UploadPage(WebDriver driver) {
+    public UploadModal(WebDriver driver) {
         super(driver);
     }
 
     @Override
-    public UploadPage isPageOpened() {
+    public UploadModal isPageOpened() {
         return this;
     }
 

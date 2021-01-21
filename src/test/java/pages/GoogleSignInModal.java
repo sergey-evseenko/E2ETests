@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class GoogleSignInPage extends AbstractPage {
+public class GoogleSignInModal extends AbstractPage {
 
     @FindBy(id = "identifierId")
     WebElement emailInput;
@@ -16,12 +16,12 @@ public class GoogleSignInPage extends AbstractPage {
     @FindBy(id = "passwordNext")
     WebElement passwordNext;
 
-    public GoogleSignInPage(WebDriver driver) {
+    public GoogleSignInModal(WebDriver driver) {
         super(driver);
     }
 
     @Override
-    public GoogleSignInPage isPageOpened() {
+    public GoogleSignInModal isPageOpened() {
         wait.until(ExpectedConditions.visibilityOf(emailInput));
         return this;
     }

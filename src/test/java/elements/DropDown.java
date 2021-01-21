@@ -3,7 +3,9 @@ package elements;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -30,6 +32,11 @@ public class DropDown {
         locatorForSelectionValue = String.format("//div[@title='%s']", value);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locatorForSelectionValue)));
         driver.findElement(By.xpath(locatorForSelectionValue)).click();
+    }
+
+    public void selectMultiValue(String value, WebElement element) {
+        selectValue(value);
+        element.sendKeys(Keys.ESCAPE);
     }
 
     public String getValue() {

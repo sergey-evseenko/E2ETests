@@ -27,9 +27,9 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public GoogleSignInPage clickLoginButton() {
+    public GoogleSignInModal clickLoginButton() {
         loginButton.click();
-        return new GoogleSignInPage(driver);
+        return new GoogleSignInModal(driver);
     }
 
 

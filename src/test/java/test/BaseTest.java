@@ -17,10 +17,10 @@ import java.util.concurrent.TimeUnit;
 public abstract class BaseTest {
     PropertyManager props;
     LoginPage loginPage;
-    GoogleSignInPage googleSignInPage;
+    GoogleSignInModal googleSignInModal;
     VoiceTalentPage voiceTalentPage;
     VoiceSamplePage voiceSamplePage;
-    UploadPage uploadPage;
+    UploadModal uploadModal;
     MainPage mainPage;
     String id, password, url, timeout, headless;
 
@@ -45,10 +45,10 @@ public abstract class BaseTest {
         driver.manage().window().maximize();
 
         loginPage = new LoginPage(driver);
-        googleSignInPage = new GoogleSignInPage(driver);
+        googleSignInModal = new GoogleSignInModal(driver);
         voiceTalentPage = new VoiceTalentPage(driver);
         voiceSamplePage = new VoiceSamplePage(driver);
-        uploadPage = new UploadPage(driver);
+        uploadModal = new UploadModal(driver);
         mainPage = new MainPage(driver);
     }
 

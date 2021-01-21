@@ -62,7 +62,6 @@ public class VoiceTalentPage extends BasePage {
     }
 
     public VoiceTalentPage createAndSave(VoiceTalent voiceTalent) {
-
         inputFirstName.sendKeys(voiceTalent.getFirstName());
         inputLastName.sendKeys(voiceTalent.getLastName());
         primaryLanguageDropdown.selectValue(voiceTalent.getPrimaryLanguage());
@@ -78,7 +77,6 @@ public class VoiceTalentPage extends BasePage {
     }
 
     public VoiceTalentPage verify(VoiceTalent voiceTalent) {
-
         assertEquals(inputFirstName.getAttribute("value"), voiceTalent.getFirstName(), "Invalid first name");
         assertEquals(inputLastName.getAttribute("value"), voiceTalent.getLastName(), "Invalid last name");
         assertTrue(radioButtonMale.isSelected());
@@ -93,7 +91,6 @@ public class VoiceTalentPage extends BasePage {
     }
 
     public VoiceTalentPage updateAndSave(VoiceTalent voiceTalent) {
-
         editButton.click();
         inputFirstName.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getFirstName());
         inputLastName.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getLastName());
@@ -109,10 +106,10 @@ public class VoiceTalentPage extends BasePage {
         return this;
     }
 
-    public UploadPage editAndClickUpload() {
+    public UploadModal editAndClickUpload() {
         editButton.click();
         uploadButton.click();
-        return new UploadPage(driver);
+        return new UploadModal(driver);
     }
 
     public VoiceTalentPage save() {
