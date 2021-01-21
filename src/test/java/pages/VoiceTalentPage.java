@@ -39,10 +39,10 @@ public class VoiceTalentPage extends BasePage {
     WebElement uploadButton;
     @FindBy(xpath = "//button[@type='submit']")
     WebElement submitTalentButton;
-    DropDown statusDropdown = new DropDown(driver, wait, "status");
-    DropDown officeDropdown = new DropDown(driver, wait, "office");
-    DropDown primaryLanguageDropdown = new DropDown(driver, wait, "primaryLanguage");
-    DropDown countryCodeDropdown = new DropDown(driver, wait, "contact_numbers_0_phoneCountryCode");
+    DropDown statusDropdown = new DropDown(driver, "status");
+    DropDown officeDropdown = new DropDown(driver, "office");
+    DropDown primaryLanguageDropdown = new DropDown(driver, "primaryLanguage");
+    DropDown countryCodeDropdown = new DropDown(driver, "contact_numbers_0_phoneCountryCode");
 
     public VoiceTalentPage(WebDriver driver) {
         super(driver);

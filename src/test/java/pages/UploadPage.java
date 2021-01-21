@@ -17,8 +17,8 @@ public class UploadPage extends AbstractPage {
     WebElement inputLanguage;
     @FindBy(xpath = "//span[contains(text(), 'Submit')]")
     WebElement submitSampleButton;
-    DropDown sampleTypeDropdown = new DropDown(driver, wait, "uploadAudioSample_sampleType");
-    DropDown ageRangeDropdown = new DropDown(driver, wait, "uploadAudioSample_ageRange");
+    DropDown sampleTypeDropdown = new DropDown(driver, "uploadAudioSample_sampleType");
+    DropDown ageRangeDropdown = new DropDown(driver, "uploadAudioSample_ageRange");
 
     public UploadPage(WebDriver driver) {
         super(driver);

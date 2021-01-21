@@ -43,11 +43,11 @@ public class VoiceSamplePage extends BasePage {
     WebElement inputRoleName;
     @FindBy(id = "entryType")
     WebElement entryType;
-    DropDown languageDropdown = new DropDown(driver, wait, "language");
-    DropDown genresDropdown = new DropDown(driver, wait, "genreEntities");
-    DropDown ageRangeDropdown = new DropDown(driver, wait, "ageRange");
-    DropDown voiceRangeDropdown = new DropDown(driver, wait, "voiceRangeEntities");
-    DropDown characteristicDropdown = new DropDown(driver, wait, "characteristicEntities");
+    DropDown languageDropdown = new DropDown(driver, "language");
+    DropDown genresDropdown = new DropDown(driver, "genreEntities");
+    DropDown ageRangeDropdown = new DropDown(driver, "ageRange");
+    DropDown voiceRangeDropdown = new DropDown(driver, "voiceRangeEntities");
+    DropDown characteristicDropdown = new DropDown(driver, "characteristicEntities");
 
     public VoiceSamplePage(WebDriver driver) {
         super(driver);

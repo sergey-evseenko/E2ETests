@@ -18,14 +18,10 @@ public class DropDown {
     WebDriver driver;
     WebDriverWait wait;
 
-    public DropDown(WebDriverWait wait) {
-        this.wait = wait;
-    }
-
-    public DropDown(WebDriver driver, WebDriverWait wait, String id) {
+    public DropDown(WebDriver driver, String id) {
         this.id = id;
         this.driver = driver;
-        this.wait = wait;
+        wait = new WebDriverWait(driver, 10);
     }
 
     public void selectValue(String value) {
