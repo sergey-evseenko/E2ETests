@@ -22,19 +22,26 @@ public abstract class BaseTest {
     VoiceSamplePage voiceSamplePage;
     UploadPage uploadPage;
     MainPage mainPage;
-    String id, password, url;
+    String id, password, url, timeout, headless;
 
     private WebDriver driver;
 
     @BeforeClass(description = "Opening Chrome Driver")
     public void setDriver() {
 
+        props = new PropertyManager();
+        id = props.get("id");
+        password = props.get("password");
+        url = props.get("url");
+        timeout = props.get("timeout");
+        headless = props.get("headless");
+
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
+        options.setHeadless(Boolean.parseBoolean(headless));
         options.addArguments("--user-agent=\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36\"");
         driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Integer.parseInt(timeout), TimeUnit.SECONDS);
         driver.manage().window().maximize();
 
         loginPage = new LoginPage(driver);
@@ -43,10 +50,6 @@ public abstract class BaseTest {
         voiceSamplePage = new VoiceSamplePage(driver);
         uploadPage = new UploadPage(driver);
         mainPage = new MainPage(driver);
-        props = new PropertyManager();
-        id = props.get("id");
-        password = props.get("password");
-        url = props.get("url");
     }
 
 
