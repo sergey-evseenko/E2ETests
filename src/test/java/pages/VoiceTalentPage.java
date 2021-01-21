@@ -1,6 +1,7 @@
 package pages;
 
 import elements.DropDown;
+import elements.Input;
 import models.VoiceTalent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -16,19 +17,10 @@ import static org.testng.Assert.assertTrue;
 
 public class VoiceTalentPage extends BasePage {
 
-
-    @FindBy(id = "firstName")
-    WebElement inputFirstName;
-    @FindBy(id = "lastName")
-    WebElement inputLastName;
     @FindBy(xpath = "//input[@value='Male']")
     WebElement radioButtonMale;
     @FindBy(id = "dateOfBirth")
-    WebElement inputDateOfBirth;
-    @FindBy(id = "contact_numbers_0_phoneNumber")
-    WebElement inputContactNumber;
-    @FindBy(id = "email")
-    WebElement inputEmail;
+    WebElement fieldDateOfBirth;
     @FindBy(xpath = "//span[contains(text(), 'The record was saved successfully.')]")
     WebElement messageSuccessSaving;
     @FindBy(xpath = "//span[contains(text(), 'The record was updated successfully.')]")
@@ -39,6 +31,13 @@ public class VoiceTalentPage extends BasePage {
     WebElement uploadButton;
     @FindBy(xpath = "//button[@type='submit']")
     WebElement submitTalentButton;
+
+    Input inputFirstName = new Input(driver, "firstName");
+    Input inputLastName = new Input(driver, "lastName");
+    Input inputContactNumber = new Input(driver, "contact_numbers_0_phoneNumber");
+    Input inputEmail = new Input(driver, "email");
+    Input inputDateOfBirth = new Input(driver, "dateOfBirth");
+
     DropDown statusDropdown = new DropDown(driver, "status");
     DropDown officeDropdown = new DropDown(driver, "office");
     DropDown primaryLanguageDropdown = new DropDown(driver, "primaryLanguage");
@@ -61,48 +60,45 @@ public class VoiceTalentPage extends BasePage {
         return this;
     }
 
-    public VoiceTalentPage createAndSave(VoiceTalent voiceTalent) {
-        inputFirstName.sendKeys(voiceTalent.getFirstName());
-        inputLastName.sendKeys(voiceTalent.getLastName());
+    public void fillFieldsAndSubmit(VoiceTalent voiceTalent) {
+        wait.until(ExpectedConditions.visibilityOf(submitTalentButton));
+        inputFirstName.write(voiceTalent.getFirstName());
+        inputLastName.write(voiceTalent.getLastName());
         primaryLanguageDropdown.selectValue(voiceTalent.getPrimaryLanguage());
-        inputDateOfBirth.sendKeys(voiceTalent.getDateOfBirth(), Keys.ENTER);
+        inputDateOfBirth.write(voiceTalent.getDateOfBirth());
+        fieldDateOfBirth.sendKeys(Keys.ENTER);
         countryCodeDropdown.selectValue(voiceTalent.getCountryCode());
-        inputContactNumber.sendKeys(voiceTalent.getContactNumber());
-        inputEmail.sendKeys(voiceTalent.getEmail());
+        inputContactNumber.write(voiceTalent.getContactNumber());
+        inputEmail.write(voiceTalent.getEmail());
         officeDropdown.selectValue(voiceTalent.getOffice());
         statusDropdown.selectValue(voiceTalent.getStatus());
         submitTalentButton.click();
+    }
+
+    public VoiceTalentPage create(VoiceTalent voiceTalent) {
+        fillFieldsAndSubmit(voiceTalent);
         wait.until(ExpectedConditions.visibilityOf(messageSuccessSaving));
         return this;
     }
 
-    public VoiceTalentPage verify(VoiceTalent voiceTalent) {
-        assertEquals(inputFirstName.getAttribute("value"), voiceTalent.getFirstName(), "Invalid first name");
-        assertEquals(inputLastName.getAttribute("value"), voiceTalent.getLastName(), "Invalid last name");
-        assertTrue(radioButtonMale.isSelected());
-        assertEquals(primaryLanguageDropdown.getValue(), voiceTalent.getPrimaryLanguage(), "Invalid primary language");
-        assertEquals(inputDateOfBirth.getAttribute("value"), voiceTalent.getDateOfBirth(), "Invalid date of birthday");
-        assertEquals(countryCodeDropdown.getValue(), voiceTalent.getCountryCode(), "Invalid country code");
-        assertEquals(inputContactNumber.getAttribute("value"), voiceTalent.getContactNumber(), "Invalid contact number");
-        assertEquals(inputEmail.getAttribute("value"), voiceTalent.getEmail(), "Invalid email");
-        assertEquals(officeDropdown.getValue(), voiceTalent.getOffice(), "Invalid office");
-        assertEquals(statusDropdown.getValue(), voiceTalent.getStatus(), "Invalid status");
+    public VoiceTalentPage update(VoiceTalent voiceTalent) {
+        editButton.click();
+        fillFieldsAndSubmit(voiceTalent);
+        wait.until(ExpectedConditions.visibilityOf(messageSuccessUpdating));
         return this;
     }
 
-    public VoiceTalentPage updateAndSave(VoiceTalent voiceTalent) {
-        editButton.click();
-        inputFirstName.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getFirstName());
-        inputLastName.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getLastName());
-        primaryLanguageDropdown.selectValue(voiceTalent.getPrimaryLanguage());
-        inputDateOfBirth.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getDateOfBirth(), Keys.ENTER);
-        countryCodeDropdown.selectValue(voiceTalent.getCountryCode());
-        inputContactNumber.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getContactNumber());
-        inputEmail.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceTalent.getEmail());
-        officeDropdown.selectValue(voiceTalent.getOffice());
-        statusDropdown.selectValue(voiceTalent.getStatus());
-        submitTalentButton.click();
-        wait.until(ExpectedConditions.visibilityOf(messageSuccessUpdating));
+    public VoiceTalentPage verify(VoiceTalent voiceTalent) {
+        assertEquals(inputFirstName.getValue(), voiceTalent.getFirstName(), "Invalid first name");
+        assertEquals(inputLastName.getValue(), voiceTalent.getLastName(), "Invalid last name");
+        assertTrue(radioButtonMale.isSelected());
+        assertEquals(primaryLanguageDropdown.getValue(), voiceTalent.getPrimaryLanguage(), "Invalid primary language");
+        assertEquals(inputDateOfBirth.getValue(), voiceTalent.getDateOfBirth(), "Invalid date of birthday");
+        assertEquals(countryCodeDropdown.getValue(), voiceTalent.getCountryCode(), "Invalid country code");
+        assertEquals(inputContactNumber.getValue(), voiceTalent.getContactNumber(), "Invalid contact number");
+        assertEquals(inputEmail.getValue(), voiceTalent.getEmail(), "Invalid email");
+        assertEquals(officeDropdown.getValue(), voiceTalent.getOffice(), "Invalid office");
+        assertEquals(statusDropdown.getValue(), voiceTalent.getStatus(), "Invalid status");
         return this;
     }
 
