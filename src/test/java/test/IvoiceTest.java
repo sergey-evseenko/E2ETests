@@ -37,7 +37,7 @@ public class IvoiceTest extends BaseTest {
                 .editAndClickUpload()
                 .upload(voiceSample)
                 .save()
-                .verifyUploadedVoiceSample();
+                .verifyUploadedVoiceSample(voiceSample);
     }
 
     @Test(description = "Voice sample creation/updating")

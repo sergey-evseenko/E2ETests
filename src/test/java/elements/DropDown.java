@@ -45,10 +45,11 @@ public class DropDown {
         return driver.findElement(By.xpath(locatorForGettingValue)).getText();
     }
 
-    public void updateValue(String value) {
+    public void updateValue(String value, WebElement element) {
         locatorCrossButton = String.format("//input[@id='%s']//..//..//span[@aria-label='close']", id);
         driver.findElement(By.xpath(locatorCrossButton)).click();
         selectValue(value);
+        element.sendKeys(Keys.ESCAPE);
     }
 }
 

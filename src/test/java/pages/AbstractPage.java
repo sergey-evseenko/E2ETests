@@ -9,11 +9,12 @@ public abstract class AbstractPage {
     WebDriver driver;
     WebDriverWait wait;
     PropertyManager props;
-    String timeout;
+    String timeout, fileUrl;
 
     public AbstractPage(WebDriver driver) {
         props = new PropertyManager();
         timeout = props.get("timeout");
+        fileUrl = props.get("fileUrl");
         this.driver = driver;
         wait = new WebDriverWait(this.driver, Integer.parseInt(timeout));
         PageFactory.initElements(driver, this);

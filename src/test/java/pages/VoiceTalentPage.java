@@ -2,6 +2,7 @@ package pages;
 
 import elements.DropDown;
 import elements.Input;
+import models.VoiceSample;
 import models.VoiceTalent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -114,8 +115,10 @@ public class VoiceTalentPage extends BasePage {
         return this;
     }
 
-    public VoiceTalentPage verifyUploadedVoiceSample() {
-        List<WebElement> listOfVoiceSamples = driver.findElements(By.cssSelector(".ant-table-row.ant-table-row-level-0"));
+    public VoiceTalentPage verifyUploadedVoiceSample(VoiceSample voiceSample) {
+        String expectedLink = fileUrl + voiceSample.getFileName();
+        List<WebElement> listOfVoiceSamples = driver.findElements(By.xpath("//audio"));
+        assertEquals(listOfVoiceSamples.get(0).getAttribute("src"), expectedLink, "Invalid audio link");
         assertEquals(listOfVoiceSamples.size(), 1, "Voice sample was uploaded incorrectly");
         return this;
     }

@@ -67,7 +67,6 @@ public class VoiceSamplePage extends BasePage {
     }
 
     public VoiceSamplePage createAndSave(VoiceSample voiceSample) {
-
         inputTitle.write(voiceSample.getTitle());
         inputVoiceTalent.sendKeys(voiceSample.getVoiceTalent());
         wait.until(ExpectedConditions.invisibilityOf(elementInTheList));
@@ -88,7 +87,7 @@ public class VoiceSamplePage extends BasePage {
     }
 
     public VoiceSamplePage verify(VoiceSample voiceSample) {
-        String expectedLink = "https://ivoice-voice-samples.s3.us-east-2.amazonaws.com/" + voiceSample.getFileName();
+        String expectedLink = fileUrl + voiceSample.getFileName();
 
         assertEquals(inputTitle.getValue(), voiceSample.getTitle(), "Invalid title name");
         assertEquals(languageDropdown.getValue(), voiceSample.getLanguage(), "Invalid language");
@@ -106,18 +105,14 @@ public class VoiceSamplePage extends BasePage {
     }
 
     public VoiceSamplePage updateAndSave(VoiceSample voiceSample) {
-
         editButton.click();
         wait.until(ExpectedConditions.visibilityOf(submitSampleButton));
         inputTitle.write(voiceSample.getTitle());
         languageDropdown.selectValue(voiceSample.getLanguage());
-        genresDropdown.updateValue(voiceSample.getGenre());
-        title.sendKeys(Keys.ESCAPE);
+        genresDropdown.updateValue(voiceSample.getGenre(), title);
         ageRangeDropdown.selectValue(voiceSample.getAgeRange());
-        voiceRangeDropdown.updateValue(voiceSample.getVoiceRange());
-        title.sendKeys(Keys.ESCAPE);
-        characteristicDropdown.updateValue(voiceSample.getCharacteristic());
-        title.sendKeys(Keys.ESCAPE);
+        voiceRangeDropdown.updateValue(voiceSample.getVoiceRange(), title);
+        characteristicDropdown.updateValue(voiceSample.getCharacteristic(), title);
         inputInternalNote.write(voiceSample.getInternalNote());
         entryType.write(voiceSample.getEntryType());
         inputProjectTitle.write(voiceSample.getProjectTitle());
