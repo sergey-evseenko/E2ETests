@@ -1,7 +1,6 @@
-package test;
+package models;
 
 import com.github.javafaker.Faker;
-import models.VoiceTalent;
 
 
 public class VoiceTalentFactory {

@@ -1,9 +1,6 @@
-package test;
+package models;
 
 import com.github.javafaker.Faker;
-import models.VoiceSample;
-
-import java.io.File;
 
 public class VoiceSampleFactory {
 
@@ -20,7 +17,7 @@ public class VoiceSampleFactory {
                 characteristic,
                 faker.name().title(),
                 sampleType,
-                System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "Data" + File.separator + "QA.mp3",
+                System.getProperty("user.dir") + "/src/test/resources/Data/QA.mp3",
                 entryType,
                 faker.name().title(),
                 faker.name().title()
