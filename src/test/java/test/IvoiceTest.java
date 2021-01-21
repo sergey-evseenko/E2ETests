@@ -30,9 +30,9 @@ public class IvoiceTest extends BaseTest {
     public void voiceTalentCanBeCreatedAndUpdated() {
         voiceTalentPage
                 .openPage(url)
-                .createAndSave(voiceTalent)
+                .create(voiceTalent)
                 .verify(voiceTalent)
-                .updateAndSave(updatedVoiceTalent)
+                .update(updatedVoiceTalent)
                 .verify(updatedVoiceTalent)
                 .editAndClickUpload()
                 .upload(voiceSample)

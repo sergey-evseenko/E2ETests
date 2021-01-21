@@ -1,6 +1,7 @@
 package pages;
 
 import elements.DropDown;
+import elements.Input;
 import models.VoiceSample;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -14,13 +15,11 @@ import static org.testng.Assert.assertTrue;
 public class VoiceSamplePage extends BasePage {
 
     @FindBy(id = "title")
-    WebElement inputTitle;
+    WebElement title;
     @FindBy(id = "voiceTalent")
     WebElement inputVoiceTalent;
     @FindBy(xpath = "//input[@value='1']")
     WebElement radioButtonActing;
-    @FindBy(id = "internalNote")
-    WebElement inputInternalNote;
     @FindBy(xpath = "//button[@type='submit']")
     WebElement submitButton;
     @FindBy(xpath = "//span[contains(text(), 'The record was saved successfully.')]")
@@ -37,12 +36,13 @@ public class VoiceSamplePage extends BasePage {
     WebElement elementInTheList;
     @FindBy(id = "previewAudio")
     WebElement previewAudio;
-    @FindBy(id = "projectTitle")
-    WebElement inputProjectTitle;
-    @FindBy(id = "roleName")
-    WebElement inputRoleName;
-    @FindBy(id = "entryType")
-    WebElement entryType;
+
+    Input inputTitle = new Input(driver, "title");
+    Input inputInternalNote = new Input(driver, "internalNote");
+    Input entryType = new Input(driver, "entryType");
+    Input inputProjectTitle = new Input(driver, "projectTitle");
+    Input inputRoleName = new Input(driver, "roleName");
+
     DropDown languageDropdown = new DropDown(driver, "language");
     DropDown genresDropdown = new DropDown(driver, "genreEntities");
     DropDown ageRangeDropdown = new DropDown(driver, "ageRange");
@@ -68,20 +68,20 @@ public class VoiceSamplePage extends BasePage {
 
     public VoiceSamplePage createAndSave(VoiceSample voiceSample) {
 
-        inputTitle.sendKeys(voiceSample.getTitle());
+        inputTitle.write(voiceSample.getTitle());
         inputVoiceTalent.sendKeys(voiceSample.getVoiceTalent());
         wait.until(ExpectedConditions.invisibilityOf(elementInTheList));
         inputVoiceTalent.sendKeys(Keys.ENTER);
         languageDropdown.selectValue(voiceSample.getLanguage());
-        genresDropdown.selectMultiValue(voiceSample.getGenre(), inputTitle);
+        genresDropdown.selectMultiValue(voiceSample.getGenre(), title);
         ageRangeDropdown.selectValue(voiceSample.getAgeRange());
-        voiceRangeDropdown.selectMultiValue(voiceSample.getVoiceRange(), inputTitle);
-        characteristicDropdown.selectMultiValue(voiceSample.getCharacteristic(), inputTitle);
-        inputInternalNote.sendKeys(voiceSample.getInternalNote());
+        voiceRangeDropdown.selectMultiValue(voiceSample.getVoiceRange(), title);
+        characteristicDropdown.selectMultiValue(voiceSample.getCharacteristic(), title);
+        inputInternalNote.write(voiceSample.getInternalNote());
         inputUploadAudio.sendKeys(voiceSample.getFilePath());
-        entryType.sendKeys(voiceSample.getEntryType());
-        inputProjectTitle.sendKeys(voiceSample.getProjectTitle());
-        inputRoleName.sendKeys(voiceSample.getRoleName());
+        entryType.write(voiceSample.getEntryType());
+        inputProjectTitle.write(voiceSample.getProjectTitle());
+        inputRoleName.write(voiceSample.getRoleName());
         submitButton.click();
         wait.until(ExpectedConditions.visibilityOf(messageSuccessSaving));
         return this;
@@ -90,42 +90,40 @@ public class VoiceSamplePage extends BasePage {
     public VoiceSamplePage verify(VoiceSample voiceSample) {
         String expectedLink = "https://ivoice-voice-samples.s3.us-east-2.amazonaws.com/" + voiceSample.getFileName();
 
-        assertEquals(inputTitle.getAttribute("value"), voiceSample.getTitle(), "Invalid title name");
+        assertEquals(inputTitle.getValue(), voiceSample.getTitle(), "Invalid title name");
         assertEquals(languageDropdown.getValue(), voiceSample.getLanguage(), "Invalid language");
         assertTrue(radioButtonActing.isSelected());
         assertEquals(genresDropdown.getMultiValue(), voiceSample.getGenre(), "Invalid genre");
         assertEquals(ageRangeDropdown.getValue(), voiceSample.getAgeRange(), "Invalid age range");
         assertEquals(voiceRangeDropdown.getMultiValue(), voiceSample.getVoiceRange(), "Invalid voice range");
         assertEquals(characteristicDropdown.getMultiValue(), voiceSample.getCharacteristic(), "Invalid genre characteristic");
-        assertEquals(inputInternalNote.getText(), voiceSample.getInternalNote(), "Invalid title name");
+        assertEquals(inputInternalNote.getValue(), voiceSample.getInternalNote(), "Invalid title name");
         assertEquals(previewAudio.getAttribute("src"), expectedLink, "Invalid preview audio");
-        //assertEquals(entryType.getAttribute("value"), voiceSample.getEntryType(), "Invalid entry type");
-        assertEquals(inputProjectTitle.getAttribute("value"), voiceSample.getProjectTitle(), "Invalid project title");
-        assertEquals(inputRoleName.getAttribute("value"), voiceSample.getRoleName(), "Invalid role name");
+        //assertEquals(entryType.getValue(), voiceSample.getEntryType(), "Invalid entry type");
+        assertEquals(inputProjectTitle.getValue(), voiceSample.getProjectTitle(), "Invalid project title");
+        assertEquals(inputRoleName.getValue(), voiceSample.getRoleName(), "Invalid role name");
         return this;
     }
 
     public VoiceSamplePage updateAndSave(VoiceSample voiceSample) {
 
         editButton.click();
-
-        inputTitle.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceSample.getTitle());
+        wait.until(ExpectedConditions.visibilityOf(submitSampleButton));
+        inputTitle.write(voiceSample.getTitle());
         languageDropdown.selectValue(voiceSample.getLanguage());
         genresDropdown.updateValue(voiceSample.getGenre());
-        inputTitle.sendKeys(Keys.ESCAPE);
+        title.sendKeys(Keys.ESCAPE);
         ageRangeDropdown.selectValue(voiceSample.getAgeRange());
         voiceRangeDropdown.updateValue(voiceSample.getVoiceRange());
-        inputTitle.sendKeys(Keys.ESCAPE);
+        title.sendKeys(Keys.ESCAPE);
         characteristicDropdown.updateValue(voiceSample.getCharacteristic());
-        inputTitle.sendKeys(Keys.ESCAPE);
-        inputInternalNote.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceSample.getInternalNote());
-        entryType.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceSample.getEntryType());
-        inputProjectTitle.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceSample.getProjectTitle());
-        inputRoleName.sendKeys(Keys.chord(Keys.COMMAND, "a"), voiceSample.getRoleName());
+        title.sendKeys(Keys.ESCAPE);
+        inputInternalNote.write(voiceSample.getInternalNote());
+        entryType.write(voiceSample.getEntryType());
+        inputProjectTitle.write(voiceSample.getProjectTitle());
+        inputRoleName.write(voiceSample.getRoleName());
         submitSampleButton.click();
         wait.until(ExpectedConditions.visibilityOf(messageSuccessUpdating));
         return this;
-
     }
-
 }
