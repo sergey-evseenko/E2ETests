@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class GoogleSignInPage extends BasePage {
+public class GoogleSignInPage extends AbstractPage {
 
     @FindBy(id = "identifierId")
     WebElement emailInput;
@@ -21,14 +21,9 @@ public class GoogleSignInPage extends BasePage {
     }
 
     @Override
-    public BasePage isPageOpened() {
+    public GoogleSignInPage isPageOpened() {
         wait.until(ExpectedConditions.visibilityOf(emailInput));
-        return null;
-    }
-
-    @Override
-    public LoginPage openPage(String url) {
-        return null;
+        return this;
     }
 
     public MainPage provideEmailAndPass(String email, String pass) {

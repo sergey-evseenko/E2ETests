@@ -15,9 +15,9 @@ public class LoginPage extends BasePage {
     }
 
     @Override
-    public BasePage isPageOpened() {
+    public LoginPage isPageOpened() {
         wait.until(ExpectedConditions.elementToBeClickable(loginButton));
-        return null;
+        return this;
     }
 
     @Override

@@ -54,9 +54,9 @@ public class VoiceSamplePage extends BasePage {
     }
 
     @Override
-    public BasePage isPageOpened() {
+    public VoiceSamplePage isPageOpened() {
         wait.until(ExpectedConditions.elementToBeClickable(submitButton));
-        return null;
+        return this;
     }
 
     @Override

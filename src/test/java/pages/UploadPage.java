@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class UploadPage extends BasePage {
+public class UploadPage extends AbstractPage {
 
     @FindBy(id = "uploadAudioSample_audioSample")
     WebElement inputUploadAudio;
@@ -25,15 +25,9 @@ public class UploadPage extends BasePage {
     }
 
     @Override
-    public BasePage isPageOpened() {
-        return null;
+    public UploadPage isPageOpened() {
+        return this;
     }
-
-    @Override
-    public BasePage openPage(String url) {
-        return null;
-    }
-
 
     public VoiceTalentPage upload(VoiceSample voiceSample) {
         inputTitle.sendKeys(voiceSample.getTitle());
@@ -43,8 +37,5 @@ public class UploadPage extends BasePage {
         inputUploadAudio.sendKeys(voiceSample.getFilePath());
         submitSampleButton.click();
         return new VoiceTalentPage(driver);
-
     }
-
-
 }

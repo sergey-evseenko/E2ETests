@@ -15,14 +15,14 @@ public class MainPage extends BasePage {
     }
 
     @Override
-    public BasePage isPageOpened() {
+    public MainPage isPageOpened() {
         wait.until(ExpectedConditions.elementToBeClickable(searchInput));
-        return null;
+        return this;
     }
 
     @Override
-    public LoginPage openPage(String url) {
-        return null;
+    public MainPage openPage(String url) {
+        return this;
     }
 
 

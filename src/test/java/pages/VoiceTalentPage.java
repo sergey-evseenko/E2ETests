@@ -44,15 +44,14 @@ public class VoiceTalentPage extends BasePage {
     DropDown primaryLanguageDropdown = new DropDown(driver, wait, "primaryLanguage");
     DropDown countryCodeDropdown = new DropDown(driver, wait, "contact_numbers_0_phoneCountryCode");
 
-
     public VoiceTalentPage(WebDriver driver) {
         super(driver);
     }
 
     @Override
-    public BasePage isPageOpened() {
+    public VoiceTalentPage isPageOpened() {
         wait.until(ExpectedConditions.elementToBeClickable(submitTalentButton));
-        return null;
+        return this;
     }
 
     @Override
