@@ -1,6 +1,7 @@
 image: markhobson/maven-chrome:jdk-11
 
 stages:
+  - build
   - test
 
 variables:
@@ -10,6 +11,11 @@ cache:
   paths:
     - .m2/repository/
     - target/
+
+build:
+  stage: build
+  script:
+    - mvn compile
 
 test:
   stage: test
