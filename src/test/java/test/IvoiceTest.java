@@ -5,7 +5,6 @@ import models.VoiceSampleFactory;
 import models.VoiceTalent;
 import models.VoiceTalentFactory;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 public class IvoiceTest extends BaseTest {
@@ -38,14 +37,13 @@ public class IvoiceTest extends BaseTest {
                 .verifyUploadedVoiceSample(voiceSample);
     }
 
-    @Ignore
     @Test(description = "Voice sample creation/updating")
     public void voiceSampleCanBeCreatedAndUpdated() {
         voiceSamplePage
                 .openPage(url)
-                .createAndSave(voiceSample)
+                .create(voiceSample)
                 .verify(voiceSample)
-                .updateAndSave(updatedVoiceSample)
+                .update(updatedVoiceSample)
                 .verify(updatedVoiceSample);
     }
 }

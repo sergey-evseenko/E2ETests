@@ -66,7 +66,7 @@ public class VoiceSamplePage extends BasePage {
         return this;
     }
 
-    public VoiceSamplePage createAndSave(VoiceSample voiceSample) {
+    public VoiceSamplePage create(VoiceSample voiceSample) {
         inputTitle.write(voiceSample.getTitle());
         inputVoiceTalent.sendKeys(voiceSample.getVoiceTalent());
         wait.until(ExpectedConditions.invisibilityOf(elementInTheList));
@@ -78,7 +78,6 @@ public class VoiceSamplePage extends BasePage {
         characteristicDropdown.selectMultiValue(voiceSample.getCharacteristic(), title);
         inputInternalNote.write(voiceSample.getInternalNote());
         inputUploadAudio.sendKeys(voiceSample.getFilePath());
-        entryType.write(voiceSample.getEntryType());
         inputProjectTitle.write(voiceSample.getProjectTitle());
         inputRoleName.write(voiceSample.getRoleName());
         submitButton.click();
@@ -98,13 +97,12 @@ public class VoiceSamplePage extends BasePage {
         assertEquals(characteristicDropdown.getMultiValue(), voiceSample.getCharacteristic(), "Invalid genre characteristic");
         assertEquals(inputInternalNote.getValue(), voiceSample.getInternalNote(), "Invalid title name");
         assertEquals(previewAudio.getAttribute("src"), expectedLink, "Invalid preview audio");
-        //assertEquals(entryType.getValue(), voiceSample.getEntryType(), "Invalid entry type");
         assertEquals(inputProjectTitle.getValue(), voiceSample.getProjectTitle(), "Invalid project title");
         assertEquals(inputRoleName.getValue(), voiceSample.getRoleName(), "Invalid role name");
         return this;
     }
 
-    public VoiceSamplePage updateAndSave(VoiceSample voiceSample) {
+    public VoiceSamplePage update(VoiceSample voiceSample) {
         editButton.click();
         wait.until(ExpectedConditions.visibilityOf(submitSampleButton));
         inputTitle.write(voiceSample.getTitle());
@@ -114,7 +112,6 @@ public class VoiceSamplePage extends BasePage {
         voiceRangeDropdown.updateValue(voiceSample.getVoiceRange(), title);
         characteristicDropdown.updateValue(voiceSample.getCharacteristic(), title);
         inputInternalNote.write(voiceSample.getInternalNote());
-        entryType.write(voiceSample.getEntryType());
         inputProjectTitle.write(voiceSample.getProjectTitle());
         inputRoleName.write(voiceSample.getRoleName());
         submitSampleButton.click();
