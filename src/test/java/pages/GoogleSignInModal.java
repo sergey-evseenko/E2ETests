@@ -38,6 +38,12 @@ public class GoogleSignInModal extends AbstractPage {
         AllureUtils.takeScreenshot(driver);
         identifierNext.click();
         AllureUtils.takeScreenshot(driver);
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        AllureUtils.takeScreenshot(driver);
         passwordInput.sendKeys(pass);
         AllureUtils.takeScreenshot(driver);
         passwordNext.click();
