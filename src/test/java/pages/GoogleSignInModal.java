@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import utils.AllureUtils;
 
 public class GoogleSignInModal extends AbstractPage {
 
@@ -32,10 +33,15 @@ public class GoogleSignInModal extends AbstractPage {
             driver.switchTo().window(winHandle);
         }
         isPageOpened();
+        AllureUtils.takeScreenshot(driver);
         emailInput.sendKeys(email);
+        AllureUtils.takeScreenshot(driver);
         identifierNext.click();
+        AllureUtils.takeScreenshot(driver);
         passwordInput.sendKeys(pass);
+        AllureUtils.takeScreenshot(driver);
         passwordNext.click();
+        AllureUtils.takeScreenshot(driver);
         driver.switchTo().window(winHandleBefore);
         return new MainPage(driver);
     }
