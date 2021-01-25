@@ -23,6 +23,7 @@ test:
     - mvn clean test
   after_script:
     - mvn allure:report
+    - curl ifconfig.me
   artifacts:
     when: always
     name: "report"
